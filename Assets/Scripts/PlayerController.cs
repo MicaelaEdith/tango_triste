@@ -28,6 +28,9 @@ public class PlayerController : MonoBehaviour
     private float firstLimitY;
     private float secondLimitY;
 
+    private float minX;
+    private float maxX;
+
     void Awake()
     {
         animator = GetComponent<Animator>();
@@ -35,39 +38,42 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        Camera cam = Camera.main;
+
         initialY = transform.position.y;
 
-        float screenHeight = Camera.main.orthographicSize * 2f;
+        float screenHeight = cam.orthographicSize * 2f;
+        float screenWidth = screenHeight * cam.aspect;
 
         firstLimitY = initialY + screenHeight / 3f;
         secondLimitY = initialY + (screenHeight * 2f / 3f);
+
+        float leftEdge = cam.transform.position.x - screenWidth / 2f;
+        float rightEdge = cam.transform.position.x + screenWidth / 2f;
+
+        float margin = screenWidth / 5f;
+
+        minX = leftEdge + margin;
+        maxX = rightEdge - margin;
     }
 
     void Update()
     {
-        float moveX = 0f;
-        float moveY = 0f;
-
-        if (Keyboard.current.aKey.isPressed) moveX = -1;
-        if (Keyboard.current.dKey.isPressed) moveX = 1;
+        float inputX = 0f;
+        if (Keyboard.current.aKey.isPressed) inputX = -1;
+        else if (Keyboard.current.dKey.isPressed) inputX = 1;
 
         bool pressingW = Keyboard.current.wKey.isPressed;
         bool pressingS = Keyboard.current.sKey.isPressed;
 
         float currentY = transform.position.y;
 
-        if (pressingW)
-        {
-            GameManager.SpeedMultiplier = starFastMultiplier;
-        }
-        else if (pressingS)
-        {
-            GameManager.SpeedMultiplier = starSlowMultiplier;
-        }
-        else
-        {
-            GameManager.SpeedMultiplier = starNormalMultiplier;
-        }
+        GameManager.SpeedMultiplier = pressingW ? starFastMultiplier :
+                                      pressingS ? starSlowMultiplier :
+                                      starNormalMultiplier;
+
+        GameManager.HorizontalDirection = inputX == 0 ? 0 : -inputX;
+        float moveY = 0f;
 
         if (pressingW)
         {
@@ -75,26 +81,23 @@ public class PlayerController : MonoBehaviour
                 moveY = fastUpSpeed;
             else if (currentY < secondLimitY)
                 moveY = slowUpSpeed;
-            else
-                moveY = 0f;
         }
         else if (pressingS)
         {
             moveY = -downSpeed;
         }
-        else
+        else if (currentY > initialY)
         {
-            if (currentY > initialY)
-                moveY = -returnSlowSpeed;
-            else
-                moveY = 0f;
+            moveY = -returnSlowSpeed;
         }
 
-        Vector3 movement = new Vector3(moveX * speedX, moveY, 0f);
+        Vector3 movement = new Vector3(inputX * speedX, moveY, 0f);
         transform.Translate(movement * Time.deltaTime);
 
+        float clampedX = Mathf.Clamp(transform.position.x, minX, maxX);
         float clampedY = Mathf.Clamp(transform.position.y, initialY, secondLimitY);
-        transform.position = new Vector3(transform.position.x, clampedY, 0f);
+
+        transform.position = new Vector3(clampedX, clampedY, 0f);
 
         animator.SetBool("isMoving", pressingW);
     }

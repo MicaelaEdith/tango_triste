@@ -23,7 +23,10 @@ public class Star : MonoBehaviour
     {
         float finalSpeed = speed * GameManager.SpeedMultiplier;
 
-        transform.Translate(Vector3.down * finalSpeed * Time.deltaTime);
+        float moveY = -finalSpeed;
+        float moveX = GameManager.HorizontalDirection * GameManager.HorizontalInfluence;
+
+        transform.Translate(new Vector3(moveX, moveY, 0f) * Time.deltaTime);
 
         if (transform.position.y < bottomLimit)
         {
@@ -33,9 +36,17 @@ public class Star : MonoBehaviour
 
     void Respawn()
     {
-        float newY = Random.Range(topRespawnMin, topRespawnMax);
-        float newX = transform.position.x;
+        Camera cam = Camera.main;
 
-        transform.position = new Vector3(newX, newY, 0);
+        float screenHeight = cam.orthographicSize * 2f;
+        float screenWidth = screenHeight * cam.aspect;
+
+        float leftEdge = cam.transform.position.x - screenWidth / 2f;
+        float rightEdge = cam.transform.position.x + screenWidth / 2f;
+
+        float newX = Random.Range(leftEdge, rightEdge);
+        float newY = Random.Range(topRespawnMin, topRespawnMax);
+
+        transform.position = new Vector3(newX, newY, 0f);
     }
 }
