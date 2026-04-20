@@ -32,9 +32,8 @@ public class MeteorSpawner : MonoBehaviour
 
         bottomLimit = camBottom - 1f;
 
-        // 👇 lo que pediste: spawn por encima de pantalla con rango amplio
         spawnMinY = camTop + 1f;
-        spawnMaxY = camTop + (height * 2f);
+        spawnMaxY = camTop + height;
 
         SpawnAll();
     }

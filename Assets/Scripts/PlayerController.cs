@@ -22,6 +22,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float starNormalMultiplier = 1f;
 
+    [SerializeField]
+    private GameObject explosion;
+
+
     private Animator animator;
 
     private float initialY;
@@ -101,4 +105,23 @@ public class PlayerController : MonoBehaviour
 
         animator.SetBool("isMoving", pressingW);
     }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Meteor"))
+        {
+            Debug.Log("colision");
+
+            explosion.SetActive(true);
+            Invoke(nameof(HideExplosion), 1f);
+        }
+    }
+
+
+    void HideExplosion()
+    {
+        explosion.SetActive(false);
+    }
+
+
 }
