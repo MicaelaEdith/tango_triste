@@ -2,14 +2,20 @@ using UnityEngine;
 
 public class MeteorSpawner : MonoBehaviour
 {
-    [SerializeField] private GameObject meteorPrefab;
-    [SerializeField] private int meteorCount = 25;
+    [SerializeField]
+    private GameObject meteorPrefab;
+    [SerializeField]
+    private int meteorCount = 25;
 
-    [SerializeField] private float minSpeed = 2.5f;
-    [SerializeField] private float maxSpeed = 4f;
+    [SerializeField]
+    private float minSpeed = 2.5f;
+    [SerializeField]
+    private float maxSpeed = 4f;
 
-    [SerializeField] private float minRotation = -150f;
-    [SerializeField] private float maxRotation = 150f;
+    [SerializeField]
+    private float minRotation = -150f;
+    [SerializeField]
+    private float maxRotation = 150f;
 
     private float leftX;
     private float rightX;

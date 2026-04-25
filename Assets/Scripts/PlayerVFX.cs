@@ -16,7 +16,7 @@ public class PlayerVFX : MonoBehaviour
         explosionObject.SetActive(true);
         explosionAnimator.Play("Explosion", 0, 0f);
 
-        Invoke(nameof(HideExplosion), 0.5f); // ajustá al largo del clip
+        Invoke(nameof(HideExplosion), 1f);
     }
 
     void HideExplosion()

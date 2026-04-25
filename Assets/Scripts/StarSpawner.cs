@@ -10,8 +10,6 @@ public class StarSpawner : MonoBehaviour
     private float screenWidth = 10f;
     [SerializeField]
     private float bottomLimit = -6f;
-    [SerializeField]
-    private float player_speed = 0f;
 
     private Color color_1 = new Color(1f, 1f, 1f, 1f);
     private Color color_2 = new Color(1f, 0.95f, 0.85f, 0.40f);
