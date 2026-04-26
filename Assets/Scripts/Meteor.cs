@@ -11,6 +11,8 @@ public class Meteor : MonoBehaviour
     private float leftX;
     private float rightX;
 
+    private SpriteRenderer sr;
+
     private int hits = 0;
     private float pushOffset = 0f;
 
@@ -23,6 +25,12 @@ public class Meteor : MonoBehaviour
 
     [SerializeField]
     private GameObject destroyEffect;
+
+    void Awake()
+    {
+        sr = GetComponent<SpriteRenderer>();
+    }
+
 
     public void Init(
         float speed,
@@ -60,6 +68,13 @@ public class Meteor : MonoBehaviour
         {
             Respawn();
         }
+
+        Color c = sr.color;
+        c.a = GameManager.IsPaused ? 0f : 1f;
+        sr.color = c;
+
+        if (GameManager.IsPaused) return;
+
     }
 
     void Respawn()
