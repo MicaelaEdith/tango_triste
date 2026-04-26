@@ -22,6 +22,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float starNormalMultiplier = 1f;
 
+    private Vector3 initialPosition;
+
     private Animator animator;
 
     private float initialY;
@@ -40,6 +42,7 @@ public class PlayerController : MonoBehaviour
     {
         Camera cam = Camera.main;
 
+        initialPosition = transform.position;
         initialY = transform.position.y;
 
         float screenHeight = cam.orthographicSize * 2f;
@@ -101,5 +104,15 @@ public class PlayerController : MonoBehaviour
         transform.position = new Vector3(clampedX, clampedY, 0f);
 
         animator.SetBool("isMoving", pressingW);
+    }
+
+    public void ResetPlayer()
+    {
+        transform.position = initialPosition;
+
+        animator.SetBool("isMoving", false);
+
+        GameManager.SpeedMultiplier = 1f;
+        GameManager.HorizontalDirection = 0f;
     }
 }

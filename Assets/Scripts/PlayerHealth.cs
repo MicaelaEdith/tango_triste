@@ -9,14 +9,16 @@ public class PlayerHealth : MonoBehaviour
     private TextMeshProUGUI lblHealth;
     [SerializeField]
     private GameObject explosion;
+    [SerializeField]
+    private GameObject lblGameOver;
 
-    private int currentHealth;
-    private bool isDead = false;
+    public int currentHealth;
 
     void Start()
     {
         currentHealth = maxHealth;
         UpdateUI();
+        lblGameOver.SetActive(false);
 
         if (explosion != null)
             explosion.SetActive(false);
@@ -24,8 +26,6 @@ public class PlayerHealth : MonoBehaviour
 
     public void TakeDamage(int amount)
     {
-        if (isDead) return;
-
         currentHealth -= amount;
 
         if (currentHealth < 0)
@@ -37,6 +37,7 @@ public class PlayerHealth : MonoBehaviour
         if (currentHealth == 0)
         {
             Die();
+            GameManager.gameOver = true;
         }
     }
 
@@ -56,10 +57,10 @@ public class PlayerHealth : MonoBehaviour
 
     void Die()
     {
-        isDead = true;
-        Debug.Log("Player murió");
-
+        currentHealth = maxHealth;
+        FindAnyObjectByType<GameManager>().GameOver();
         gameObject.SetActive(false);
+        lblGameOver.SetActive(true);
     }
 
     void UpdateUI()

@@ -1,4 +1,5 @@
 using UnityEngine;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,17 +11,16 @@ public class GameManager : MonoBehaviour
     private GameObject Ui_panel;
     [SerializeField]
     private GameObject Chad;
-
+    
     public static float SpeedMultiplier = 1f;
 
     public static float HorizontalDirection = 0f;
     public static float HorizontalInfluence = 0.5f;
+    public static bool IsPaused = false;
 
     public static string ChadText = "HOLA GUAPO! Estoy funcionando!";
-
     public static int Level = 1;
-
-    public static bool IsPaused = false;
+    public static bool gameOver = false;
 
     public void PauseGame()
     {
@@ -47,6 +47,20 @@ public class GameManager : MonoBehaviour
             Player.SetActive(true);
             Ui_panel.SetActive(true);
             Chad.SetActive(true);
+            
+            if(gameOver)
+            {
+                FindAnyObjectByType<PlayerController>().ResetPlayer();
+                gameOver = false;
+            }
+
         }
     }
+
+    public void GameOver()
+    {
+        PauseGame();
+        gameOver = true;
+    }
+
 }
