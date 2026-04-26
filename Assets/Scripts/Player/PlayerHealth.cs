@@ -1,5 +1,7 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
+
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -11,8 +13,19 @@ public class PlayerHealth : MonoBehaviour
     private GameObject explosion;
     [SerializeField]
     private GameObject lblGameOver;
+    [SerializeField]
+    private Slider healthBar;
 
     public int currentHealth;
+
+    void Awake()
+    {
+        currentHealth = maxHealth;
+
+        healthBar.minValue = 0;
+        healthBar.maxValue = maxHealth;
+        healthBar.value = currentHealth;
+    }
 
     void Start()
     {
@@ -63,9 +76,8 @@ public class PlayerHealth : MonoBehaviour
         lblGameOver.SetActive(true);
     }
 
-    void UpdateUI()
+    public void UpdateUI()
     {
-        if (lblHealth != null)
-            lblHealth.text = $"Salud - {currentHealth}";
+        if (lblHealth != null) healthBar.value = currentHealth;
     }
 }

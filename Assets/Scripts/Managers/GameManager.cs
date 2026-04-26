@@ -19,7 +19,9 @@ public class GameManager : MonoBehaviour
     public static bool IsPaused = false;
 
     public static string ChadText = "HOLA GUAPO! Estoy funcionando!";
+    public static int garbage = 3;
     public static int Level = 1;
+    public static int level1_count = 0;
     public static bool gameOver = false;
 
     public void PauseGame()
@@ -61,6 +63,7 @@ public class GameManager : MonoBehaviour
     {
         PauseGame();
         gameOver = true;
+        garbage = 0;
     }
 
 }

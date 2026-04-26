@@ -1,7 +1,10 @@
 fileFormatVersion: 2
-guid: 75001f1a4efd9209d8b5b586ac45316e
+guid: 9d026d3d95c4efb89a11e4670ae2ce14
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: -6108722048579602312
+    second: fill_color_ui_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -39,7 +42,7 @@ TextureImporter:
     mipBias: 0
     wrapU: 1
     wrapV: 1
-    wrapW: 0
+    wrapW: 1
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
@@ -110,45 +113,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: picker_0
+      name: fill_color_ui_0
       rect:
         serializedVersion: 2
-        x: 1
-        y: 18
-        width: 50
+        x: 0
+        y: 0
+        width: 64
         height: 64
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 73f87bcbef74d0f479bbb1855e969207
-      internalID: -1758420213
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: picker_1
-      rect:
-        serializedVersion: 2
-        x: 55
-        y: 1
-        width: 46
-        height: 80
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0ee97e075b510f55f99d0b0dd64edebe
-      internalID: -1738035685
+      spriteID: 878f0d689a5793ba0800000000000000
+      internalID: -6108722048579602312
       vertices: []
       indices: 
       edges: []
@@ -157,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 475f397bb06f5afcc8ea1779f4d0a55c
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -165,12 +146,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries:
-      - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
+      entries: []
     nameFileIdTable:
-      picker_0: -1758420213
-      picker_1: -1738035685
+      fill_color_ui_0: -6108722048579602312
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

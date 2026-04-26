@@ -4,6 +4,15 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField]
+    private GameObject damageSprite1;
+    [SerializeField]
+    private GameObject damageSprite2;
+    [SerializeField]
+    private GameObject damageSprite3;
+    [SerializeField]
+    private GameObject garbageCollector;
+
+    [SerializeField]
     private float speedX = 6f;
 
     [SerializeField]
@@ -26,6 +35,8 @@ public class PlayerController : MonoBehaviour
 
     private Animator animator;
 
+    private PlayerHealth playerHealth;
+
     private float initialY;
     private float firstLimitY;
     private float secondLimitY;
@@ -33,9 +44,16 @@ public class PlayerController : MonoBehaviour
     private float minX;
     private float maxX;
 
+    private int sprite1_value = 70;
+    private int sprite2_value = 45;
+    private int sprite3_value = 25;
+
     void Awake()
     {
         animator = GetComponent<Animator>();
+        playerHealth = GetComponent<PlayerHealth>();
+        garbageCollector.SetActive(false);
+
     }
 
     void Start()
@@ -95,6 +113,27 @@ public class PlayerController : MonoBehaviour
             moveY = -returnSlowSpeed;
         }
 
+        if (Keyboard.current.eKey.isPressed)
+        {
+            garbageCollector.SetActive(true);
+        }
+        else
+        {
+            garbageCollector.SetActive(false);
+        }
+
+        if (Keyboard.current.rKey.wasPressedThisFrame)
+        {
+            if (GameManager.garbage >= 5)
+            {
+                RepairPlayer();
+            }
+            else
+            {
+                GameManager.ChadText = "Necesitamos más chatarra para reparar la nave";
+            }
+        }
+
         Vector3 movement = new Vector3(inputX * speedX, moveY, 0f);
         transform.Translate(movement * Time.deltaTime);
 
@@ -104,15 +143,60 @@ public class PlayerController : MonoBehaviour
         transform.position = new Vector3(clampedX, clampedY, 0f);
 
         animator.SetBool("isMoving", pressingW);
+
+        if(playerHealth.currentHealth <= sprite1_value) {
+            set_sprite();
+        }
+    }
+
+    public void set_sprite()
+    {
+        if(playerHealth.currentHealth  <= sprite1_value && playerHealth.currentHealth > sprite2_value)
+        {
+            damageSprite1.SetActive(true);
+            fastUpSpeed = 5f;
+            speedX = 5f;
+        
+        }
+        else if(playerHealth.currentHealth  <= sprite2_value && playerHealth.currentHealth  > sprite3_value)
+        {
+            speedX = 3.5f;
+            fastUpSpeed = 3f;
+            damageSprite1.SetActive(false);
+            damageSprite2.SetActive(true);
+        }
+        else if(playerHealth.currentHealth  <= sprite3_value)
+        {
+            speedX = 2f;
+            fastUpSpeed = 2f;
+            damageSprite2.SetActive(false);
+            damageSprite3.SetActive(true);
+        }
+
+    }
+
+    public void RepairPlayer()
+    {
+        fastUpSpeed = 6f;
+        speedX = 6f;
+        playerHealth.currentHealth = 100;
+        damageSprite1.SetActive(false);
+        damageSprite2.SetActive(false);
+        damageSprite3.SetActive(false);
+        GameManager.garbage = 0;
+        playerHealth.UpdateUI();
+        Debug.Log("PLAYERCOÑNTROLLER gamemanager garbage: "+ GameManager.garbage);
+
     }
 
     public void ResetPlayer()
     {
         transform.position = initialPosition;
-
-        animator.SetBool("isMoving", false);
-
         GameManager.SpeedMultiplier = 1f;
         GameManager.HorizontalDirection = 0f;
+ 
+        RepairPlayer();
+
+        animator.SetBool("isMoving", false);
     }
 }

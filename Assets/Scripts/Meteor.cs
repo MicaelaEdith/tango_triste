@@ -11,6 +11,8 @@ public class Meteor : MonoBehaviour
     private float leftX;
     private float rightX;
 
+    private int level1_count = 0;
+
     private SpriteRenderer sr;
 
     private int hits = 0;
@@ -54,8 +56,11 @@ public class Meteor : MonoBehaviour
 
     void Update()
     {
-        if (GameManager.Level != 1) return;
-
+        if (GameManager.Level != 1 && GameManager.Level != 3)
+        {
+            gameObject.SetActive(false);
+            return;
+        }
         pushOffset = Mathf.MoveTowards(pushOffset, 0f, pushRecoverySpeed * Time.deltaTime);
 
         float finalY = -speed + pushOffset;
@@ -79,6 +84,10 @@ public class Meteor : MonoBehaviour
 
     void Respawn()
     {
+        if(GameManager.Level == 1){
+            GameManager.level1_count++;
+        } 
+
         float x = Random.Range(leftX, rightX);
         float y = Random.Range(spawnMinY, spawnMaxY);
 
@@ -95,7 +104,7 @@ public class Meteor : MonoBehaviour
         PlayerHealth player = other.GetComponent<PlayerHealth>();
         if (player != null)
         {
-            player.TakeDamage(10);
+            player.TakeDamage(5);
 
             DestroyMeteor();
 

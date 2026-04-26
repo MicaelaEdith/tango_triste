@@ -41,6 +41,9 @@ public class MeteorSpawner : MonoBehaviour
         spawnMinY = camTop + 1f;
         spawnMaxY = camTop + height;
 
+        if (GameManager.Level == 1) meteorCount = 20;
+        if (GameManager.Level == 3) meteorCount = 35;
+
         SpawnAll();
     }
 
