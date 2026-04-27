@@ -5,6 +5,8 @@ public class LevelManager : MonoBehaviour
     [SerializeField]
     private MeteorSpawner meteorSpawner;
     [SerializeField]
+    private EnemyShipSpawner enemyShipSpawner;
+    [SerializeField]
     private SpriteRenderer background;
     [SerializeField]
     private GameObject levelUpUI;
@@ -77,6 +79,10 @@ public class LevelManager : MonoBehaviour
                 StartTransition(3);
             }
         }
+        if (GameManager.Level == 3){
+            Debug.Log("conteo enemigos eliminados: "+ GameManager.level3_count);
+            // Ajustar cantidad de naves a eliminar para nivel 4
+        }
     }
 
 
@@ -136,6 +142,6 @@ public class LevelManager : MonoBehaviour
 
     void SetupLevel3()
     {
-        meteorSpawner.gameObject.SetActive(true);
+        enemyShipSpawner.gameObject.SetActive(true);
     }
 }

@@ -161,6 +161,55 @@ RectTransform:
   m_AnchoredPosition: {x: -862.1, y: 238}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &221001664
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 221001666}
+  - component: {fileID: 221001665}
+  m_Layer: 0
+  m_Name: EnemyShipSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &221001665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 221001664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88818fc23a17da9898aeddc9c46f09a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyShipSpawner
+  enemyPrefab: {fileID: 2770010338264791782, guid: 37252a3e44a7a1ae38a27630a3221a47, type: 3}
+  spawnInterval: 2
+  spawnBatchSize: 6
+  maxShips: 20
+  count: 0
+--- !u!4 &221001666
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 221001664}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3.61759, y: 3.83603, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &286315391 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3576868164872571013, guid: 20bcd48501a47a672b4818b3a73fc643, type: 3}
@@ -951,6 +1000,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LevelManager
   meteorSpawner: {fileID: 1412390649}
+  enemyShipSpawner: {fileID: 221001665}
   background: {fileID: 1224975659}
   levelUpUI: {fileID: 855068415}
 --- !u!4 &569166840
@@ -3231,3 +3281,4 @@ SceneRoots:
   - {fileID: 575305385}
   - {fileID: 4830126667046316665}
   - {fileID: 1480217838}
+  - {fileID: 221001666}

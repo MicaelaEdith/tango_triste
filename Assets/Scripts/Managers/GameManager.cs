@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
     public static int garbage = 3;
     public static int Level = 1;
     public static int level1_count = 0;
+    public static int level3_count = 0;
     public static bool gameOver = false;
 
     public void PauseGame()
