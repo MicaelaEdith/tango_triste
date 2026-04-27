@@ -185,6 +185,7 @@ public class PlayerController : MonoBehaviour
         damageSprite3.SetActive(false);
         GameManager.garbage = 0;
         playerHealth.UpdateUI();
+        AudioManager.Instance.PlaySFX(AudioManager.SFXType.LevelUp);
     }
 
 public void ResetPlayer()

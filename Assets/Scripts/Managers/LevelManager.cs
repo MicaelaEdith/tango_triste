@@ -30,6 +30,9 @@ public class LevelManager : MonoBehaviour
     private int nextLevel;
     private Color originalColor;
 
+    private float level4Timer = 0f;
+    private bool level4Checking = false;
+
     void Start()
     {
         currentLevel = GameManager.Level;
@@ -50,6 +53,14 @@ public class LevelManager : MonoBehaviour
         CheckLevelProgress();
 
         currentLevel = GameManager.Level;
+
+        if (GameManager.Level == 4)
+        {
+            if (enemyZigZagSpawner.CanEndLevel())
+            {
+                StartEnding();
+            }
+        }
 
     }
 
@@ -93,11 +104,17 @@ public class LevelManager : MonoBehaviour
 
             if (GameManager.garbage == 0)
             {
+                GameManager.ChadText = "Cuidado! es una zona de naves de guerra abandonadas";
                 StartTransition(3);
             }
         }
         if (GameManager.Level == 3){
+            if (GameManager.level3_count >= 120){
+                GameManager.ChadText =  "All your base are belong to us";
+            }
+            
             if(GameManager.level3_count >= 140){
+            
             StartTransition(4);
             }
         }
@@ -170,9 +187,18 @@ public class LevelManager : MonoBehaviour
 
     void SetupLevel4()
     {
+        GameManager.ChadText = "Nos persigue una energía extraña";
         enemyShipSpawner.gameObject.SetActive(false);
         enemyZigZagSpawner.SetEnemyPrefab(level4_prefab);
         enemyZigZagSpawner.gameObject.SetActive(true);
+
+        level4Timer = 0f;
+        level4Checking = true;
+    }
+
+    void StartEnding()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Ending");
     }
 
     void ActivateMeteorSpawner()

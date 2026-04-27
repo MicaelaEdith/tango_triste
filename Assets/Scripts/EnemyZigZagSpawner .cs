@@ -17,6 +17,10 @@ public class EnemyZigZagSpawner : MonoBehaviour
     private float startY;
     private float startX;
 
+    private bool finishedSpawning = false;
+    private bool levelCanEnd = false;
+    private float endTimer = 0f;
+
     void OnEnable()
     {
         if (GameManager.Level != 4) return;
@@ -35,26 +39,42 @@ public class EnemyZigZagSpawner : MonoBehaviour
         timer = 0f;
         isSpawning = true;
 
+        levelCanEnd = false;
+        endTimer = 0f;
+
         SpawnRow();
         currentRow++;
     }
 
     void Update()
     {
-        if (!isSpawning) return;
-
-        timer += Time.deltaTime;
-
-        if (timer >= delayBetweenRows)
+        if (isSpawning)
         {
-            timer = 0f;
+            timer += Time.deltaTime;
 
-            SpawnRow();
-            currentRow++;
-
-            if (currentRow >= totalRows)
+            if (timer >= delayBetweenRows)
             {
-                isSpawning = false;
+                timer = 0f;
+
+                SpawnRow();
+                currentRow++;
+
+                if (currentRow >= totalRows)
+                {
+                    isSpawning = false;
+                    finishedSpawning = true;
+                }
+            }
+        }
+
+    
+        if (finishedSpawning)
+        {
+            endTimer += Time.deltaTime;
+
+            if (endTimer >= 42f)
+            {
+                levelCanEnd = true;
             }
         }
     }
@@ -75,5 +95,10 @@ public class EnemyZigZagSpawner : MonoBehaviour
     public void SetEnemyPrefab(GameObject prefab)
     {
         enemyPrefab = prefab;
+    }
+
+    public bool CanEndLevel()
+    {
+        return levelCanEnd;
     }
 }
