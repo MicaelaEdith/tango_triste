@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     private GameObject Ui_panel;
     [SerializeField]
     private GameObject Chad;
+
     
     public static float SpeedMultiplier = 1f;
 
@@ -24,6 +25,11 @@ public class GameManager : MonoBehaviour
     public static int level1_count = 0;
     public static int level3_count = 0;
     public static bool gameOver = false;
+
+    void Start()
+    {
+        pausePanel.SetActive(false);
+    }
 
     public void PauseGame()
     {
@@ -54,6 +60,8 @@ public class GameManager : MonoBehaviour
             if(gameOver)
             {
                 FindAnyObjectByType<PlayerController>().ResetPlayer();
+                FindAnyObjectByType<PlayerHealth>().reset_UI();
+        
                 gameOver = false;
             }
 

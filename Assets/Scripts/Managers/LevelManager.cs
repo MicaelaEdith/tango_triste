@@ -1,4 +1,5 @@
 using UnityEngine;
+using TMPro;
 
 public class LevelManager : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class LevelManager : MonoBehaviour
     private SpriteRenderer background;
     [SerializeField]
     private GameObject levelUpUI;
+    [SerializeField]
+    private TextMeshProUGUI lblLevel;
 
     private int currentLevel;
 
@@ -44,6 +47,7 @@ public class LevelManager : MonoBehaviour
     public void StartLevel(int level)
     {
         currentLevel = level;
+        lblLevel.text = "Nivel - "+currentLevel;
 
         switch (level)
         {
@@ -61,6 +65,7 @@ public class LevelManager : MonoBehaviour
 
     void CheckLevelProgress()
     {
+        currentLevel = GameManager.Level;
         if (currentLevel == 1 && GameManager.level1_count >= 35)
         {
             GameManager.ChadText = "Hey Guapo! Tenemos que recolectar chatarra para reparar la nave";
@@ -126,6 +131,7 @@ public class LevelManager : MonoBehaviour
         currentLevel = nextLevel;
 
         StartLevel(nextLevel);
+        //  seguir desde acá
         levelUpUI.SetActive(false);
     }
 

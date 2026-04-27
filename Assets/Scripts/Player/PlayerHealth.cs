@@ -8,8 +8,6 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField]
     private int maxHealth = 100;
     [SerializeField]
-    private TextMeshProUGUI lblHealth;
-    [SerializeField]
     private GameObject explosion;
     [SerializeField]
     private GameObject lblGameOver;
@@ -74,10 +72,16 @@ public class PlayerHealth : MonoBehaviour
         FindAnyObjectByType<GameManager>().GameOver();
         gameObject.SetActive(false);
         lblGameOver.SetActive(true);
+        GameManager.Level = 1;
     }
 
     public void UpdateUI()
     {
-        if (lblHealth != null) healthBar.value = currentHealth;
+        healthBar.value = currentHealth;
+    }
+
+    public void reset_UI()
+    {
+        lblGameOver.SetActive(false);
     }
 }

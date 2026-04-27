@@ -23,6 +23,8 @@ public class EnemyShip : MonoBehaviour
     private float bottomLimit;
     private float rotationDirection;
 
+    private SpriteRenderer sr;
+
     private EnemyShipSpawner spawner;
 
     private bool isDying = false;
@@ -34,7 +36,9 @@ public class EnemyShip : MonoBehaviour
 
         rotationDirection = Random.value < 0.5f ? -1f : 1f;
         shootTimer = Random.Range(0f, shootInterval);
-    }
+        sr = GetComponent<SpriteRenderer>();
+    } 
+    
 
     void Update()
     {
@@ -54,6 +58,12 @@ public class EnemyShip : MonoBehaviour
         {
             DestroyShip();
         }
+
+        Color c = sr.color;
+        c.a = GameManager.IsPaused ? 0f : 1f;
+        sr.color = c;
+
+        if (GameManager.IsPaused) return;
     }
 
     void HandleShooting()
