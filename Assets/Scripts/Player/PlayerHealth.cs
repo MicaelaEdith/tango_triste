@@ -18,7 +18,7 @@ public class PlayerHealth : MonoBehaviour
 
     void Awake()
     {
-        currentHealth = maxHealth;
+        currentHealth = maxHealth - 24;
 
         healthBar.minValue = 0;
         healthBar.maxValue = maxHealth;
@@ -27,7 +27,7 @@ public class PlayerHealth : MonoBehaviour
 
     void Start()
     {
-        currentHealth = maxHealth;
+        currentHealth = maxHealth - 24;
         UpdateUI();
         lblGameOver.SetActive(false);
 
@@ -39,13 +39,10 @@ public class PlayerHealth : MonoBehaviour
     {
         currentHealth -= amount;
 
-        if (currentHealth < 0)
-            currentHealth = 0;
-
         UpdateUI();
         PlayExplosion();
 
-        if (currentHealth == 0)
+        if (currentHealth <= 0)
         {
             Die();
             GameManager.gameOver = true;
@@ -68,11 +65,12 @@ public class PlayerHealth : MonoBehaviour
 
     void Die()
     {
-        currentHealth = maxHealth;
+        AudioManager.Instance.PlaySFX(AudioManager.SFXType.GameOver);
+        currentHealth = 80;
         FindAnyObjectByType<GameManager>().GameOver();
         gameObject.SetActive(false);
         lblGameOver.SetActive(true);
-        GameManager.Level = 1;
+
     }
 
     public void UpdateUI()

@@ -89,6 +89,7 @@ public class EnemyShip : MonoBehaviour
         PlayerHealth player = other.GetComponent<PlayerHealth>();
         if (player != null)
         {
+            AudioManager.Instance.PlaySFX(AudioManager.SFXType.EnemyDeath);
             player.TakeDamage(8);
             StartDeath();
             return;
@@ -96,6 +97,7 @@ public class EnemyShip : MonoBehaviour
 
         if (other.CompareTag("Bullet"))
         {
+            AudioManager.Instance.PlaySFX(AudioManager.SFXType.EnemyDeath);
             StartDeath();
             Destroy(other.gameObject);
         }

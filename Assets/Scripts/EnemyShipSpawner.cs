@@ -8,9 +8,9 @@ public class EnemyShipSpawner : MonoBehaviour
     [SerializeField]
     private float spawnInterval = 0.1f;
     [SerializeField]
-    private int spawnBatchSize = 6;
+    private int spawnBatchSize = 8;
     [SerializeField]
-    private int maxShips = 200;
+    private int maxShips = 250;
 
     private float timer;
     private int currentShips = 0;

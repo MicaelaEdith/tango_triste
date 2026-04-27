@@ -1482,6 +1482,10 @@ MonoBehaviour:
   sfxSource: {fileID: 453183092}
   menuMusic: {fileID: 8300000, guid: 33cfcc68f2a65f7c4af9b7b84c54bccd, type: 3}
   mainMusic: {fileID: 8300000, guid: a07170d3796afc155b59e1607d51d708, type: 3}
+  sfxClips:
+  - {fileID: 8300000, guid: 7a9df043bc09393268b83270124c349b, type: 3}
+  - {fileID: 8300000, guid: ee27b15b917e8df03a483f32cea102af, type: 3}
+  - {fileID: 8300000, guid: 3499cf1be9689ec2a8c55b2efe9fe920, type: 3}
 --- !u!4 &1673251470
 Transform:
   m_ObjectHideFlags: 0

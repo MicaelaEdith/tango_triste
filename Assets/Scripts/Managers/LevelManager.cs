@@ -8,11 +8,16 @@ public class LevelManager : MonoBehaviour
     [SerializeField]
     private EnemyShipSpawner enemyShipSpawner;
     [SerializeField]
+    private EnemyZigZagSpawner enemyZigZagSpawner;
+    
+    [SerializeField]
     private SpriteRenderer background;
     [SerializeField]
     private GameObject levelUpUI;
     [SerializeField]
     private TextMeshProUGUI lblLevel;
+    [SerializeField]
+    private GameObject level4_prefab;
 
     private int currentLevel;
 
@@ -35,6 +40,7 @@ public class LevelManager : MonoBehaviour
 
     void Update()
     {
+        currentLevel = GameManager.Level;
         if (isTransitioning)
         {
             HandleTransition();
@@ -42,6 +48,9 @@ public class LevelManager : MonoBehaviour
         }
 
         CheckLevelProgress();
+
+        currentLevel = GameManager.Level;
+
     }
 
     public void StartLevel(int level)
@@ -60,13 +69,16 @@ public class LevelManager : MonoBehaviour
             case 3:
                 SetupLevel3();
                 break;
+            case 4:
+                SetupLevel4();
+                break;
         }
     }
 
     void CheckLevelProgress()
     {
         currentLevel = GameManager.Level;
-        if (currentLevel == 1 && GameManager.level1_count >= 35)
+        if (currentLevel == 1 && GameManager.level1_count >= 200)
         {
             GameManager.ChadText = "Hey Guapo! Tenemos que recolectar chatarra para reparar la nave";
             StartTransition(2);
@@ -85,8 +97,9 @@ public class LevelManager : MonoBehaviour
             }
         }
         if (GameManager.Level == 3){
-            Debug.Log("conteo enemigos eliminados: "+ GameManager.level3_count);
-            // Ajustar cantidad de naves a eliminar para nivel 4
+            if(GameManager.level3_count >= 140){
+            StartTransition(4);
+            }
         }
     }
 
@@ -98,7 +111,10 @@ public class LevelManager : MonoBehaviour
         flashCount = 0;
         nextLevel = level;
 
+        AudioManager.Instance.PlaySFX(AudioManager.SFXType.LevelUp);
         levelUpUI.SetActive(true);
+        if(GameManager.IsPaused) levelUpUI.SetActive(false);
+
     }
 
     void HandleTransition()
@@ -131,14 +147,15 @@ public class LevelManager : MonoBehaviour
         currentLevel = nextLevel;
 
         StartLevel(nextLevel);
-        //  seguir desde acá
         levelUpUI.SetActive(false);
     }
 
 
     void SetupLevel1()
     {
-        meteorSpawner.gameObject.SetActive(true);
+        GameManager.ChadText = "Cuidado, Guapo! Se acercan meteoritos";
+
+        Invoke(nameof(ActivateMeteorSpawner), 5f);
     }
 
     void SetupLevel2()
@@ -150,4 +167,18 @@ public class LevelManager : MonoBehaviour
     {
         enemyShipSpawner.gameObject.SetActive(true);
     }
+
+    void SetupLevel4()
+    {
+        enemyShipSpawner.gameObject.SetActive(false);
+        enemyZigZagSpawner.SetEnemyPrefab(level4_prefab);
+        enemyZigZagSpawner.gameObject.SetActive(true);
+    }
+
+    void ActivateMeteorSpawner()
+    {
+        GameManager.ChadText = "Intenta dispararles con la tecla espacio";
+        meteorSpawner.gameObject.SetActive(true);
+    }
+
 }

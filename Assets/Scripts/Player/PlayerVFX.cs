@@ -2,7 +2,9 @@ using UnityEngine;
 
 public class PlayerVFX : MonoBehaviour
 {
-    [SerializeField] private GameObject explosionObject;
+    [SerializeField]
+    private GameObject explosionObject;
+    
     private Animator explosionAnimator;
 
     void Awake()

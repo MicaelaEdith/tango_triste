@@ -185,17 +185,21 @@ public class PlayerController : MonoBehaviour
         damageSprite3.SetActive(false);
         GameManager.garbage = 0;
         playerHealth.UpdateUI();
-        Debug.Log("PLAYERCOÑNTROLLER gamemanager garbage: "+ GameManager.garbage);
-
     }
 
-    public void ResetPlayer()
+public void ResetPlayer()
     {
         transform.position = initialPosition;
-        GameManager.SpeedMultiplier = 1f;
-        GameManager.HorizontalDirection = 0f;
- 
-        RepairPlayer();
+
+        fastUpSpeed = 6f;
+        speedX = 6f;
+
+        playerHealth.currentHealth = 80;
+        playerHealth.UpdateUI();
+
+        damageSprite1.SetActive(false);
+        damageSprite2.SetActive(false);
+        damageSprite3.SetActive(false);
 
         animator.SetBool("isMoving", false);
     }

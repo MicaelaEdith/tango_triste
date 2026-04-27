@@ -1,5 +1,7 @@
 using UnityEngine;
-using TMPro;
+using UnityEngine.SceneManagement;
+using TMPro; 
+using UnityEngine.UI; 
 
 public class GameManager : MonoBehaviour
 {
@@ -12,6 +14,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private GameObject Chad;
 
+    public TextMeshProUGUI btn_text; 
     
     public static float SpeedMultiplier = 1f;
 
@@ -19,8 +22,8 @@ public class GameManager : MonoBehaviour
     public static float HorizontalInfluence = 0.5f;
     public static bool IsPaused = false;
 
-    public static string ChadText = "HOLA GUAPO! Estoy funcionando!";
-    public static int garbage = 3;
+    public static string ChadText = "";
+    public static int garbage = 1;
     public static int Level = 1;
     public static int level1_count = 0;
     public static int level3_count = 0;
@@ -42,6 +45,7 @@ public class GameManager : MonoBehaviour
             Player.SetActive(false);
             Ui_panel.SetActive(false);
             Chad.SetActive(false);
+
         }
     }
 
@@ -50,29 +54,45 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
         IsPaused = false;
 
-        if (pausePanel != null){
-
+        if (pausePanel != null)
+        {
             pausePanel.SetActive(false);
             Player.SetActive(true);
             Ui_panel.SetActive(true);
             Chad.SetActive(true);
-            
-            if(gameOver)
-            {
-                FindAnyObjectByType<PlayerController>().ResetPlayer();
-                FindAnyObjectByType<PlayerHealth>().reset_UI();
-        
-                gameOver = false;
-            }
 
+            if (gameOver)
+            {
+                RestartGame();
+            }
         }
     }
 
     public void GameOver()
     {
-        PauseGame();
         gameOver = true;
         garbage = 0;
+        btn_text.text = "Reintentar";
+        PauseGame();
+    }
+
+    public void RestartGame()
+    {
+        Level = 1;
+        garbage = 0;
+        level1_count = 0;
+        level3_count = 0;
+
+        SpeedMultiplier = 1f;
+        HorizontalDirection = 0f;
+
+        ChadText = "";
+        gameOver = false;
+
+        Time.timeScale = 1f;
+        IsPaused = false;
+
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
 }

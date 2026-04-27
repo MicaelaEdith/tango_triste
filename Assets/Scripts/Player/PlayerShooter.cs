@@ -18,6 +18,7 @@ public class PlayerShooter : MonoBehaviour
         if (Keyboard.current.spaceKey.isPressed && Time.time >= nextFireTime)
         {
             Shoot();
+            AudioManager.Instance.PlaySFX(AudioManager.SFXType.PlayerShoot);
             nextFireTime = Time.time + fireRate;
         }
     }

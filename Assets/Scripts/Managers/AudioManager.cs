@@ -5,19 +5,32 @@ public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance;
 
-
     public AudioSource musicSource;
     public AudioSource sfxSource;
 
     public AudioClip menuMusic;
     public AudioClip mainMusic;
 
+    public AudioClip[] sfxClips;
+
+    public enum SFXType
+    {
+        MeteorExplosion,
+        GarbagePickup,
+        LevelUp,
+        EnemyDeath,
+        EnemyShoot,
+        PlayerShoot,
+        Win,
+        GameOver,
+        ElectricHit
+    }
+
     public static bool isMusicMuted;
     public static bool isSfxMuted;
 
     void Awake()
     {
-
         if (Instance == null)
         {
             Instance = this;
@@ -58,25 +71,30 @@ public class AudioManager : MonoBehaviour
         musicSource.loop = true;
         musicSource.Play();
     }
-    
+
     public void ToggleMusic()
     {
         isMusicMuted = !isMusicMuted;
         musicSource.mute = isMusicMuted;
+        PlayerPrefs.SetInt("MusicMuted", isMusicMuted ? 1 : 0);
     }
 
     public void ToggleSFX()
     {
         isSfxMuted = !isSfxMuted;
         sfxSource.mute = isSfxMuted;
+        PlayerPrefs.SetInt("SfxMuted", isSfxMuted ? 1 : 0);
     }
 
-
-    public void PlaySFX(AudioClip clip)
+    public void PlaySFX(SFXType type)
     {
-        if (!isSfxMuted && clip != null)
+        if (isSfxMuted) return;
+
+        int index = (int)type;
+
+        if (index >= 0 && index < sfxClips.Length)
         {
-            sfxSource.PlayOneShot(clip);
+            sfxSource.PlayOneShot(sfxClips[index]);
         }
     }
 }

@@ -21,9 +21,9 @@ public class Meteor : MonoBehaviour
     private bool isDead = false;
 
     [SerializeField]
-    private float pushForce = 7f;
+    private float pushForce = 8f;
     [SerializeField]
-    private float pushRecoverySpeed = 6f;
+    private float pushRecoverySpeed = 5f;
 
     [SerializeField]
     private GameObject destroyEffect;
@@ -155,6 +155,7 @@ public class Meteor : MonoBehaviour
 
     void DestroyMeteor()
     {
+        AudioManager.Instance.PlaySFX(AudioManager.SFXType.MeteorExplosion);
         if (isDead) return;
         isDead = true;
 

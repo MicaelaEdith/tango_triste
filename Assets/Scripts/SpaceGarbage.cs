@@ -43,7 +43,7 @@ public class SpaceGarbage : MonoBehaviour
 
     void Update()
     {
-        if (first)
+        if (first && GameManager.Level != 1)
         {
             GameManager.ChadText = "Presiona 'E' para recolectar la chatarra";
             first = false;
@@ -64,7 +64,7 @@ public class SpaceGarbage : MonoBehaviour
     {
         if (other.CompareTag("Collector"))
         {
-            Debug.Log("Chatarra recolectada");
+            AudioManager.Instance.PlaySFX(AudioManager.SFXType.GarbagePickup);
             GameManager.garbage++;
 
             Destroy(gameObject);
