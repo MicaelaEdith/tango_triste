@@ -575,7 +575,7 @@ GameObject:
   - component: {fileID: 4373156019085435962}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -809,9 +809,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
   maxHealth: 100
-  lblHealth: {fileID: 0}
   explosion: {fileID: 855712448711883009}
   lblGameOver: {fileID: 0}
+  healthBar: {fileID: 0}
   currentHealth: 0
 --- !u!114 &4373156019085435962
 MonoBehaviour:

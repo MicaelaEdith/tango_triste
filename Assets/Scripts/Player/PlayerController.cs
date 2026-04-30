@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Threading.Tasks;
 
 public class PlayerController : MonoBehaviour
 {
@@ -175,18 +176,32 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    public void RepairPlayer()
+public async void RepairPlayer()
+{
+    fastUpSpeed = 6f;
+    speedX = 6f;
+    playerHealth.currentHealth = 100;
+
+    damageSprite1.SetActive(false);
+    damageSprite2.SetActive(false);
+    damageSprite3.SetActive(false);
+
+    GameManager.garbage = 0;
+    playerHealth.UpdateUI();
+
+    AudioManager.Instance.PlaySFX(AudioManager.SFXType.LevelUp);
+
+    SpriteRenderer sr = GetComponent<SpriteRenderer>();
+
+    for (int i = 0; i < 6; i++)
     {
-        fastUpSpeed = 6f;
-        speedX = 6f;
-        playerHealth.currentHealth = 100;
-        damageSprite1.SetActive(false);
-        damageSprite2.SetActive(false);
-        damageSprite3.SetActive(false);
-        GameManager.garbage = 0;
-        playerHealth.UpdateUI();
-        AudioManager.Instance.PlaySFX(AudioManager.SFXType.LevelUp);
+        sr.color = new Color(1f, 1f, 1f, 0.2f);
+        await Task.Delay(80);
+
+        sr.color = new Color(1f, 1f, 1f, 1f);
+        await Task.Delay(80);
     }
+}
 
 public void ResetPlayer()
     {

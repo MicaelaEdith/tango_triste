@@ -37,8 +37,13 @@ public class Level5Spawner : MonoBehaviour
         leftX = cam.transform.position.x - width / 2f;
         rightX = cam.transform.position.x + width / 2f;
 
-        SpawnShips();
-        SpawnMeteors();
+        if (GameManager.Level == 5)
+        {
+            SpawnShips();
+            SpawnMeteors();
+
+            // meté esto en el update y manejalo con una bandera cuando llames a level 5 que si lo hacés bien no llegas, bobita ¬¬
+        }
     }
 
     void Update()
@@ -121,4 +126,5 @@ public class Level5Spawner : MonoBehaviour
             GameManager.Level = 6;
         }
     }
+
 }

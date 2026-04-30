@@ -28,6 +28,8 @@ public class EnemyShip : MonoBehaviour
     private EnemyShipSpawner spawner;
     private Level5Spawner level5Spawner;
 
+    private bool wasKilledByPlayer = false;
+
     private bool isDying = false;
 
     public void Init(float bottomLimit, EnemyShipSpawner spawner)
@@ -99,6 +101,8 @@ public class EnemyShip : MonoBehaviour
         if (other.CompareTag("Bullet"))
         {
             AudioManager.Instance.PlaySFX(AudioManager.SFXType.EnemyDeath);
+
+            wasKilledByPlayer = true; 
             StartDeath();
             Destroy(other.gameObject);
         }
@@ -126,16 +130,27 @@ public class EnemyShip : MonoBehaviour
         }
     }
 
+
     void DestroyShip()
     {
+        if (level5Spawner != null)
+        {
+            if (wasKilledByPlayer)
+            {
+                level5Spawner.OnShipDestroyed();
+                Destroy(gameObject);
+            }
+            else
+            {
+                Respawn();
+            }
+
+            return;
+        }
+
         if (spawner != null)
         {
             spawner.OnShipDestroyed();
-        }
-
-        if (level5Spawner != null)
-        {
-            level5Spawner.OnShipDestroyed();
         }
 
         Destroy(gameObject);
@@ -143,7 +158,22 @@ public class EnemyShip : MonoBehaviour
     }
 
     public void SetLevel5Spawner(Level5Spawner spawner)
-{
-    level5Spawner = spawner;
-}
+    {
+        level5Spawner = spawner;
+    }
+
+    void Respawn()
+    {
+        Camera cam = Camera.main;
+
+        float height = cam.orthographicSize * 2f;
+        float width = height * cam.aspect;
+
+        float topY = cam.transform.position.y + height / 2f + 2f;
+        float x = Random.Range(cam.transform.position.x - width / 2f, cam.transform.position.x + width / 2f);
+
+        transform.position = new Vector3(x, topY, 0f);
+
+        wasKilledByPlayer = false;
+    }
 }

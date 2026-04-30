@@ -354,12 +354,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 221001664}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.61759, y: 3.83603, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -633.70746, y: -238.42175, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 569166840}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &286315391 stripped
 GameObject:
@@ -1154,6 +1154,7 @@ MonoBehaviour:
   meteorSpawner: {fileID: 1412390649}
   enemyShipSpawner: {fileID: 221001665}
   enemyZigZagSpawner: {fileID: 1187879498}
+  level5Spawner: {fileID: 1568188716}
   background: {fileID: 1224975659}
   levelUpUI: {fileID: 855068415}
   lblLevel: {fileID: 705108228}
@@ -1172,6 +1173,9 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1412390650}
+  - {fileID: 221001666}
+  - {fileID: 1187879499}
+  - {fileID: 1568188717}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &575305384
@@ -2109,12 +2113,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1187879497}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.2, y: 14.1, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -630.28986, y: -228.15778, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 569166840}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1224975658
 GameObject:
@@ -2273,7 +2277,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1412390649
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2639,6 +2643,53 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1514070272}
   m_CullTransparentMesh: 1
+--- !u!1 &1568188715
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1568188717}
+  - component: {fileID: 1568188716}
+  m_Layer: 0
+  m_Name: Level5Spawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1568188716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1568188715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8c00302c163d32798373f9edf6b947e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Level5Spawner
+  enemyShipPrefab: {fileID: 2770010338264791782, guid: 37252a3e44a7a1ae38a27630a3221a47, type: 3}
+  meteorPrefab: {fileID: 109529751309159311, guid: 852795575fa91dd01a1fd3b80141e1d7, type: 3}
+  zigzagPrefab: {fileID: 5452413891267035583, guid: 75e34f2424f389303b7cd13b2f4527b9, type: 3}
+--- !u!4 &1568188717
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1568188715}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -640.752, y: -235.17809, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 569166840}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1601308269
 GameObject:
   m_ObjectHideFlags: 0
@@ -3928,6 +3979,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 7992012644394924716, guid: 20bcd48501a47a672b4818b3a73fc643, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 8843155553936358521, guid: 20bcd48501a47a672b4818b3a73fc643, type: 3}
       propertyPath: healthBar
       value: 
@@ -3959,5 +4014,3 @@ SceneRoots:
   - {fileID: 575305385}
   - {fileID: 4830126667046316665}
   - {fileID: 1480217838}
-  - {fileID: 221001666}
-  - {fileID: 1187879499}
