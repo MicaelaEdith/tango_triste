@@ -1,130 +1,195 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class Level5Spawner : MonoBehaviour
 {
     [SerializeField]
-    private GameObject enemyShipPrefab;
-    [SerializeField]
     private GameObject meteorPrefab;
+    [SerializeField]
+    private GameObject enemyShipPrefab;
     [SerializeField]
     private GameObject zigzagPrefab;
 
-    private int totalShips = 50;
-    private int shipsDestroyed = 0;
+    private List<EnemyShip> ships = new List<EnemyShip>();
 
-    private int[] zigzagTriggers = { 10, 40, 75};
-    private bool[] zigzagSpawned;
-
-    private int meteorCount = 8;
-
-    private float topSpawnY;
-    private float bottomLimit;
     private float leftX;
     private float rightX;
+    private float topY;
+    private float bottomY;
+
+    private float zigzagTimer;
+    private float zigzagInterval = 18f;
+
+    private int zigzagIndex = 0;
+    private int[] zigzagOrder = new int[3];
+
+    private float leftLane;
+    private float centerLane;
+    private float rightLane;
+
+    public int shipsDestroyed = 0;
+
+    private bool stopSpawning = false;
+    private float endTimer = 0f;
+    [SerializeField] private float endDelay = 5f;
+
+    public bool IsFinished => stopSpawning && endTimer >= endDelay;
 
     void Start()
     {
-        zigzagSpawned = new bool[zigzagTriggers.Length];
-
         Camera cam = Camera.main;
 
         float height = cam.orthographicSize * 2f;
         float width = height * cam.aspect;
 
-        topSpawnY = cam.transform.position.y + height / 2f + 2f;
-        bottomLimit = cam.transform.position.y - height / 2f - 2f;
-
         leftX = cam.transform.position.x - width / 2f;
         rightX = cam.transform.position.x + width / 2f;
 
-        if (GameManager.Level == 5)
-        {
-            SpawnShips();
-            SpawnMeteors();
+        topY = cam.transform.position.y + height / 2f + 2f;
+        bottomY = cam.transform.position.y - height / 2f - 2f;
 
-            // meté esto en el update y manejalo con una bandera cuando llames a level 5 que si lo hacés bien no llegas, bobita ¬¬
-        }
+        leftLane = leftX + width * 0.25f;
+        centerLane = cam.transform.position.x;
+        rightLane = rightX - width * 0.25f;
+
+        SpawnMeteors();
+        SpawnShips();
+
+        ShuffleZigZagOrder();
     }
 
     void Update()
     {
-        CheckZigZagSpawns();
-        CheckLevelComplete();
-    }
-
-    void SpawnShips()
-    {
-        for (int i = 0; i < totalShips; i++)
+        if (stopSpawning)
         {
-            float x = Random.Range(leftX, rightX);
-            float y = topSpawnY + Random.Range(0f, 30f);
+            endTimer += Time.deltaTime;
+            return;
+        }
 
-            GameObject ship = Instantiate(enemyShipPrefab, new Vector3(x, y, 0f), Quaternion.identity);
+        HandleZigZagSpawn();
 
-            EnemyShip es = ship.GetComponent<EnemyShip>();
-
-            if (es != null)
-            {
-                es.Init(bottomLimit, null);
-                es.SetLevel5Spawner(this);
-            }
+        if (shipsDestroyed >= 65)
+        {
+            stopSpawning = true;
+            GameManager.ChadText = "Quedan pocas... Disparales a todas!";
         }
     }
 
     void SpawnMeteors()
     {
-        for (int i = 0; i < meteorCount; i++)
+        for (int i = 0; i < 8; i++)
         {
-            GameObject m = Instantiate(meteorPrefab);
+            GameObject obj = Instantiate(meteorPrefab);
 
-            Meteor meteor = m.GetComponent<Meteor>();
-            if (meteor != null)
-            {
-                meteor.Init(
-                    Random.Range(1f, 3f),
-                    Random.Range(-100f, 100f),
-                    bottomLimit,
-                    topSpawnY,
-                    topSpawnY + 10f,
-                    leftX,
-                    rightX
-                );
-            }
+            Meteor m = obj.GetComponent<Meteor>();
+
+            float speed = Random.Range(1.5f, 3.5f);
+            float rotation = Random.Range(-150f, 150f);
+
+            m.Init(
+                speed,
+                rotation,
+                bottomY,
+                topY,
+                topY + 5f,
+                leftX,
+                rightX
+            );
         }
+    }
+
+    void SpawnShips()
+    {
+        for (int i = 0; i < 25; i++)
+        {
+            SpawnSingleShip();
+        }
+    }
+
+    void SpawnSingleShip()
+    {
+        if (stopSpawning) return;
+
+        float x = Random.Range(leftX, rightX);
+
+        float screenHeight = topY - bottomY;
+        float spawnRange = screenHeight * 0.7f;
+        float offset = 10f;
+
+        float spawnY = Random.Range(
+            topY + offset,
+            topY + offset - spawnRange
+        );
+
+        GameObject obj = Instantiate(enemyShipPrefab, new Vector3(x, spawnY, 0f), Quaternion.identity);
+
+        EnemyShip ship = obj.GetComponent<EnemyShip>();
+        ship.Init(bottomY, null);
+        ship.SetLevel5Spawner(this);
+
+        ships.Add(ship);
     }
 
     public void OnShipDestroyed()
     {
         shipsDestroyed++;
+
+        if (!stopSpawning)
+        {
+            SpawnSingleShip();
+        }
     }
 
-    void CheckZigZagSpawns()
+    void HandleZigZagSpawn()
     {
-        for (int i = 0; i < zigzagTriggers.Length; i++)
+        if (stopSpawning) return;
+
+        zigzagTimer += Time.deltaTime;
+
+        if (zigzagTimer >= zigzagInterval)
         {
-            if (!zigzagSpawned[i] && shipsDestroyed >= zigzagTriggers[i])
+            zigzagTimer = 0f;
+
+            SpawnZigZag();
+
+            zigzagIndex++;
+
+            if (zigzagIndex >= 3)
             {
-                zigzagSpawned[i] = true;
-                SpawnZigZag();
+                zigzagIndex = 0;
+                ShuffleZigZagOrder();
             }
         }
     }
 
     void SpawnZigZag()
     {
-        float x = Random.Range(leftX, rightX);
-        float y = bottomLimit - 2f;
+        float x = GetLanePosition(zigzagOrder[zigzagIndex]);
 
-        Instantiate(zigzagPrefab, new Vector3(x, y, 0f), Quaternion.identity);
+        Vector3 spawnPos = new Vector3(x, bottomY - 2, 0f);
+
+        Instantiate(zigzagPrefab, spawnPos, Quaternion.identity);
     }
 
-    void CheckLevelComplete()
+    float GetLanePosition(int lane)
     {
-        if (shipsDestroyed >= totalShips)
+        if (lane == 0) return leftLane;
+        if (lane == 1) return centerLane;
+        return rightLane;
+    }
+
+    void ShuffleZigZagOrder()
+    {
+        zigzagOrder[0] = 0;
+        zigzagOrder[1] = 1;
+        zigzagOrder[2] = 2;
+
+        for (int i = 0; i < zigzagOrder.Length; i++)
         {
-            Debug.Log("Nivel 5 completado");
-            GameManager.Level = 6;
+            int rand = Random.Range(0, zigzagOrder.Length);
+            int temp = zigzagOrder[i];
+            zigzagOrder[i] = zigzagOrder[rand];
+            zigzagOrder[rand] = temp;
         }
     }
-
 }

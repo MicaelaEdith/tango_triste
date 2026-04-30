@@ -23,7 +23,8 @@ public class AudioManager : MonoBehaviour
         PlayerShoot,
         Win,
         GameOver,
-        ElectricHit
+        ElectricHit,
+        chad
     }
 
     public static bool isMusicMuted;

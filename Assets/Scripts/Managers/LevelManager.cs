@@ -45,7 +45,7 @@ public class LevelManager : MonoBehaviour
 
     void Update()
     {
-        currentLevel = GameManager.Level;
+        
         if (isTransitioning)
         {
             HandleTransition();
@@ -54,17 +54,7 @@ public class LevelManager : MonoBehaviour
 
         CheckLevelProgress();
 
-        currentLevel = GameManager.Level;
-
-        if (GameManager.Level == 4)
-        {
-            if (enemyZigZagSpawner.CanEndLevel())
-            {
-                //StartEnding();
-                StartLevel(5);
-            }
-        }
-
+        
     }
 
     public void StartLevel(int level)
@@ -88,6 +78,9 @@ public class LevelManager : MonoBehaviour
                 break;
             case 5:
                 SetupLevel5();
+                break;
+            case 6:
+                SetupLevel6();
                 break;
         }
     }
@@ -123,6 +116,32 @@ public class LevelManager : MonoBehaviour
             
             StartTransition(4);
             }
+        }
+
+        if (GameManager.Level == 4)
+        {
+            if (enemyZigZagSpawner.CanEndLevel())
+            {
+                StartLevel(5);
+            }
+        }
+
+
+        if (currentLevel == 5)
+        {
+            if (level5Spawner.shipsDestroyed >= 14)
+                GameManager.ChadText = "Parece que las naves vienen de una nave nodriza";
+
+            if (level5Spawner.IsFinished)
+            {
+                StartTransition(6);
+            }
+        }
+
+        if (currentLevel == 6)
+        {
+            //StartEnding();
+            Debug.Log("Nivel 6");
         }
     }
 
@@ -207,6 +226,14 @@ public class LevelManager : MonoBehaviour
         GameManager.ChadText = "¡Cuidado! Es otro cúmulo de naves muertas.";
         level5Spawner.gameObject.SetActive(true);
         enemyZigZagSpawner.gameObject.SetActive(false);
+    }
+
+
+    void SetupLevel6()
+    {
+        //GameManager.ChadText = "¡Cuidado! Es otro cúmulo de naves muertas.";
+        level5Spawner.gameObject.SetActive(false);
+        
     }
 
     void StartEnding()

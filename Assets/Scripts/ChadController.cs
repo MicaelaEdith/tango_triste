@@ -39,6 +39,7 @@ public class ChadController : MonoBehaviour
     IEnumerator TalkRoutine()
     {
         animator.SetBool("isTalking", true);
+        AudioManager.Instance.PlaySFX(AudioManager.SFXType.chad);
 
         yield return new WaitForSeconds(3f);
 

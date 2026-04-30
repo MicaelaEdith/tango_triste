@@ -2659,7 +2659,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1568188716
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2672,9 +2672,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8c00302c163d32798373f9edf6b947e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Level5Spawner
-  enemyShipPrefab: {fileID: 2770010338264791782, guid: 37252a3e44a7a1ae38a27630a3221a47, type: 3}
   meteorPrefab: {fileID: 109529751309159311, guid: 852795575fa91dd01a1fd3b80141e1d7, type: 3}
+  enemyShipPrefab: {fileID: 2770010338264791782, guid: 37252a3e44a7a1ae38a27630a3221a47, type: 3}
   zigzagPrefab: {fileID: 5452413891267035583, guid: 75e34f2424f389303b7cd13b2f4527b9, type: 3}
+  shipsDestroyed: 0
 --- !u!4 &1568188717
 Transform:
   m_ObjectHideFlags: 0
