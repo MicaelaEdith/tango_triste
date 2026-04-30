@@ -56,7 +56,7 @@ public class Meteor : MonoBehaviour
 
     void Update()
     {
-        if (GameManager.Level != 1 && GameManager.Level != 3)
+        if (GameManager.Level != 10 && GameManager.Level != 5)
         {
             gameObject.SetActive(false);
             return;

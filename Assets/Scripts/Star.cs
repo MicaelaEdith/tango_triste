@@ -21,16 +21,19 @@ public class Star : MonoBehaviour
 
     void Update()
     {
-        float finalSpeed = speed * GameManager.SpeedMultiplier;
-
-        float moveY = -finalSpeed;
-        float moveX = GameManager.HorizontalDirection * GameManager.HorizontalInfluence;
-
-        transform.Translate(new Vector3(moveX, moveY, 0f) * Time.deltaTime);
-
-        if (transform.position.y < bottomLimit)
+        if (GameManager.Level !=6)
         {
-            Respawn();
+            float finalSpeed = speed * GameManager.SpeedMultiplier;
+
+            float moveY = -finalSpeed;
+            float moveX = GameManager.HorizontalDirection * GameManager.HorizontalInfluence;
+
+            transform.Translate(new Vector3(moveX, moveY, 0f) * Time.deltaTime);
+
+            if (transform.position.y < bottomLimit)
+            {
+                Respawn();
+            }
         }
     }
 

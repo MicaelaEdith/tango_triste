@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour
 
     public static string ChadText = "";
     public static int garbage = 1;
-    public static int Level = 1;
+    public static int Level = 6;
     public static int level1_count = 0;
     public static int level3_count = 0;
     public static bool gameOver = false;

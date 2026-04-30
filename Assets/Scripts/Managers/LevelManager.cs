@@ -40,7 +40,8 @@ public class LevelManager : MonoBehaviour
         currentLevel = GameManager.Level;
         originalColor = background.color;
 
-        StartLevel(currentLevel);
+        //StartLevel(currentLevel);
+        StartLevel(6);
     }
 
     void Update()
@@ -140,8 +141,9 @@ public class LevelManager : MonoBehaviour
 
         if (currentLevel == 6)
         {
+            Debug.Log("nivel6");
             //StartEnding();
-            Debug.Log("Nivel 6");
+            
         }
     }
 
@@ -224,14 +226,14 @@ public class LevelManager : MonoBehaviour
     void SetupLevel5()
     {
         GameManager.ChadText = "¡Cuidado! Es otro cúmulo de naves muertas.";
-        level5Spawner.gameObject.SetActive(true);
         enemyZigZagSpawner.gameObject.SetActive(false);
+        level5Spawner.gameObject.SetActive(true);
     }
 
 
     void SetupLevel6()
     {
-        //GameManager.ChadText = "¡Cuidado! Es otro cúmulo de naves muertas.";
+        GameManager.ChadText = "¡Ahí está! esa es la nave nodriza, hay que destruirla";
         level5Spawner.gameObject.SetActive(false);
         
     }
