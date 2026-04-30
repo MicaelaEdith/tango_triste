@@ -72,7 +72,7 @@ public class EnemyZigZagSpawner : MonoBehaviour
         {
             endTimer += Time.deltaTime;
 
-            if (endTimer >= 42f)
+            if (endTimer >= 44f)
             {
                 levelCanEnd = true;
             }

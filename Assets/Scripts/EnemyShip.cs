@@ -26,6 +26,7 @@ public class EnemyShip : MonoBehaviour
     private SpriteRenderer sr;
 
     private EnemyShipSpawner spawner;
+    private Level5Spawner level5Spawner;
 
     private bool isDying = false;
 
@@ -128,9 +129,21 @@ public class EnemyShip : MonoBehaviour
     void DestroyShip()
     {
         if (spawner != null)
+        {
             spawner.OnShipDestroyed();
+        }
+
+        if (level5Spawner != null)
+        {
+            level5Spawner.OnShipDestroyed();
+        }
 
         Destroy(gameObject);
         GameManager.level3_count++;
     }
+
+    public void SetLevel5Spawner(Level5Spawner spawner)
+{
+    level5Spawner = spawner;
+}
 }

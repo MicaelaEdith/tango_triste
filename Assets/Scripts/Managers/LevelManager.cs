@@ -38,7 +38,8 @@ public class LevelManager : MonoBehaviour
         currentLevel = GameManager.Level;
         originalColor = background.color;
 
-        StartLevel(currentLevel);
+        //StartLevel(currentLevel);
+        StartLevel(5);
     }
 
     void Update()
@@ -58,7 +59,8 @@ public class LevelManager : MonoBehaviour
         {
             if (enemyZigZagSpawner.CanEndLevel())
             {
-                StartEnding();
+                //StartEnding();
+                StartLevel(5);
             }
         }
 
@@ -82,6 +84,9 @@ public class LevelManager : MonoBehaviour
                 break;
             case 4:
                 SetupLevel4();
+                break;
+            case 5:
+                SetupLevel5();
                 break;
         }
     }
@@ -172,7 +177,8 @@ public class LevelManager : MonoBehaviour
     {
         GameManager.ChadText = "Cuidado, Guapo! Se acercan meteoritos";
 
-        Invoke(nameof(ActivateMeteorSpawner), 5f);
+        //Invoke(nameof(ActivateMeteorSpawner), 5f);
+        //desmutear spawner en inspector!!!
     }
 
     void SetupLevel2()
@@ -194,6 +200,13 @@ public class LevelManager : MonoBehaviour
 
         level4Timer = 0f;
         level4Checking = true;
+    }
+
+    void SetupLevel5()
+    {
+        GameManager.ChadText = "¡Cuidado! Es otro cúmulo de naves muertas.";
+        enemyShipSpawner.gameObject.SetActive(true);
+        enemyZigZagSpawner.gameObject.SetActive(false);
     }
 
     void StartEnding()
