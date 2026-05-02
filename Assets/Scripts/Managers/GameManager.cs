@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
     public static int level3_count = 0;
     public static bool gameOver = false;
     public static bool you_win = false;
+    public static bool stopMeteor = false;
 
     void Start()
     {

@@ -10,7 +10,7 @@ public class EndingManager : MonoBehaviour
     [SerializeField]
     private GameObject slide3;
     [SerializeField]
-    private GameObject exitButton;
+    private GameObject slide4;
 
     private int currentSlide = 1;
     private float timer = 0f;
@@ -21,12 +21,12 @@ public class EndingManager : MonoBehaviour
         slide1.SetActive(true);
         slide2.SetActive(false);
         slide3.SetActive(false);
-        exitButton.SetActive(false);
+        slide4.SetActive(false);
     }
 
     void Update()
     {
-        if (currentSlide == 3) return;
+        if (currentSlide == 4) return;
 
         timer += Time.deltaTime;
 
@@ -45,7 +45,12 @@ public class EndingManager : MonoBehaviour
                 slide2.SetActive(false);
                 slide3.SetActive(true);
 
-                exitButton.SetActive(true);
+            }
+            else if (currentSlide == 4)
+            {
+                slide3.SetActive(false);
+                slide4.SetActive(true);
+
             }
         }
     }

@@ -20,10 +20,8 @@ public class EnemyZigZagSpawner : MonoBehaviour
 
     private bool levelCanEnd = false;
 
-    // 🔹 NUEVO: guardamos la última fila
     private List<GameObject> lastRowEnemies = new List<GameObject>();
 
-    // 🔹 límite superior de pantalla
     private float topLimit;
 
     void Start()
@@ -35,7 +33,7 @@ public class EnemyZigZagSpawner : MonoBehaviour
         float topEdge = cam.transform.position.y + screenHeight / 2f;
 
         startY = bottomEdge - spawnOffsetY;
-        topLimit = topEdge + 2f; // un margen
+        topLimit = topEdge + 2f;
 
         float totalWidth = (enemiesPerRow - 1) * spaceBetweenEnemies;
         startX = cam.transform.position.x - totalWidth / 2f;
@@ -79,7 +77,6 @@ public class EnemyZigZagSpawner : MonoBehaviour
     {
         float rowY = startY;
 
-        // 🔹 si es la última fila, limpiamos y guardamos referencias
         bool isLastRow = (currentRow == totalRows - 1);
 
         if (isLastRow)
@@ -121,7 +118,6 @@ public class EnemyZigZagSpawner : MonoBehaviour
 
         if (allOut)
         {
-            Debug.Log("Última fila salió de pantalla");
             levelCanEnd = true;
         }
     }

@@ -9,7 +9,7 @@ public class Level6 : MonoBehaviour
     void Start()
     {
 
-        Instantiate(bossPrefab, new Vector3(0f, 0f, 0f), Quaternion.identity);
+        Instantiate(bossPrefab, new Vector3(0f, 7f, 0f), Quaternion.identity);
      
 
     }

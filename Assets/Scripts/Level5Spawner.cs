@@ -110,8 +110,6 @@ public class Level5Spawner : MonoBehaviour
     void SpawnSingleShip()
     {
 
-        if (GameManager.Level == 6) return;
-
         float x = Random.Range(leftX, rightX);
 
         float screenHeight = topY - bottomY;
@@ -134,7 +132,6 @@ public class Level5Spawner : MonoBehaviour
 
     public void OnShipDestroyed()
     {
-        Debug.Log("paso pr el destroy");
         shipsDestroyed++;
 
         if (!stopSpawning)

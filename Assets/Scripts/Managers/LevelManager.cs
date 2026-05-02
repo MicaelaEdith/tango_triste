@@ -43,7 +43,6 @@ public class LevelManager : MonoBehaviour
         originalColor = background.color;
 
         StartLevel(currentLevel);
-        //StartLevel(6);
     }
 
     void Update()
@@ -91,7 +90,7 @@ public class LevelManager : MonoBehaviour
     void CheckLevelProgress()
     {
         currentLevel = GameManager.Level;
-        if (currentLevel == 1 && GameManager.level1_count >= 50)
+        if (currentLevel == 1 && GameManager.level1_count >= 220)
         {
             StartTransition(2);
             
@@ -116,8 +115,8 @@ public class LevelManager : MonoBehaviour
                 GameManager.ChadText =  "All your base are belong to us";
             }
             
-            if(GameManager.level3_count >= 10){ //esto tiene que decir 140
-            
+            if(GameManager.level3_count >= 150){
+             
             StartTransition(4);
             }
         }
@@ -133,7 +132,7 @@ public class LevelManager : MonoBehaviour
 
         if (currentLevel == 5)
         {
-            if (level5Spawner.shipsDestroyed >= 14)
+            if (level5Spawner.shipsDestroyed >= 70)
                 GameManager.ChadText = "Parece que las naves vienen de una nave nodriza";
 
             if (level5Spawner.IsFinished)
@@ -145,7 +144,6 @@ public class LevelManager : MonoBehaviour
         if (currentLevel == 6)
         {
             if(GameManager.you_win){
-                GameManager.ChadText = "Lo conseguimos, ya estamos llegando al Asteroide";
                 StartEnding();
             }
             

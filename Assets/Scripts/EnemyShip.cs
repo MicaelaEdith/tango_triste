@@ -164,16 +164,19 @@ public class EnemyShip : MonoBehaviour
 
     void Respawn()
     {
-        Camera cam = Camera.main;
+        if (GameManager.Level != 6){
 
-        float height = cam.orthographicSize * 2f;
-        float width = height * cam.aspect;
+            Camera cam = Camera.main;
 
-        float topY = cam.transform.position.y + height / 2f + 2f;
-        float x = Random.Range(cam.transform.position.x - width / 2f, cam.transform.position.x + width / 2f);
+            float height = cam.orthographicSize * 2f;
+            float width = height * cam.aspect;
 
-        transform.position = new Vector3(x, topY, 0f);
+            float topY = cam.transform.position.y + height / 2f + 2f;
+            float x = Random.Range(cam.transform.position.x - width / 2f, cam.transform.position.x + width / 2f);
 
-        wasKilledByPlayer = false;
+            transform.position = new Vector3(x, topY, 0f);
+
+            wasKilledByPlayer = false;
+        }
     }
 }

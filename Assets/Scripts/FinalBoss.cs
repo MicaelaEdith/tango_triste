@@ -31,8 +31,9 @@ public class FinalBoss : MonoBehaviour
     private Sprite spriteDamage2;
     [SerializeField]
     private Sprite spriteDamage3; 
-    [SerializeField] private
-    ParticleSystem hitParticles;
+
+    [SerializeField]
+    private ParticleSystem hitParticles;
 
     private SpriteRenderer sr;
 
@@ -48,6 +49,12 @@ public class FinalBoss : MonoBehaviour
     private float direction = 1f;
 
     private bool isDead = false;
+    private bool endStarted = false;
+
+    private bool isDying = false;
+    private float deathTimer = 0f;
+    private int pulseCount = 0;
+    private float pulseSpeed = 8f;
 
     void Start()
     {
@@ -69,24 +76,27 @@ public class FinalBoss : MonoBehaviour
 
     void Update()
     {
-        if (GameManager.Level == 6){
-            if (isDead) return;
+        if (isDying)
+        {
+            HandleDeathAnimation();
+            return;
+        }
 
-            if (isInPosition)
-            {
-                HandleMovement();
-                HandleShooting();
-            }else
-            {
-                HandleEntry();
-            }
+        if (isDead) return;
+
+        if (isInPosition)
+        {
+            HandleMovement();
+            HandleShooting();
+        }
+        else
+        {
+            HandleEntry();
         }
     }
 
     void HandleEntry()
     {
-        if (isInPosition) return;
-
         transform.position += Vector3.down * enterSpeed * Time.deltaTime;
 
         if (transform.position.y <= targetY)
@@ -108,7 +118,6 @@ public class FinalBoss : MonoBehaviour
         transform.Rotate(0f, 0f, rotationSpeed * Time.deltaTime);
     }
 
-
     void HandleShooting()
     {
         shootTimer += Time.deltaTime;
@@ -116,9 +125,7 @@ public class FinalBoss : MonoBehaviour
         if (shootTimer >= currentShootInterval)
         {
             shootTimer = 0f;
-
             ShootPattern();
-
             SetRandomShootInterval();
         }
     }
@@ -127,7 +134,6 @@ public class FinalBoss : MonoBehaviour
     {
         currentShootInterval = Random.Range(minShootInterval, maxShootInterval);
     }
-
 
     void ShootPattern()
     {
@@ -138,7 +144,6 @@ public class FinalBoss : MonoBehaviour
             case 0:
                 ShootAll();
                 break;
-
             case 1:
                 ShootAlternate();
                 break;
@@ -159,12 +164,12 @@ public class FinalBoss : MonoBehaviour
         Instantiate(bulletPrefab, shooters[index].position, shooters[index].rotation);
     }
 
-
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Bullet"))
         {
             TakeDamage(1);
+            AudioManager.Instance.PlaySFX(AudioManager.SFXType.bossDemage);
             Destroy(other.gameObject);
         }
     }
@@ -178,27 +183,20 @@ public class FinalBoss : MonoBehaviour
         {
             hitParticles.Play();
 
-            if(currentHealth >= 51)
-            {
+            if (currentHealth >= 51)
                 sr.color = Color.gray;
-
-            }
-            if(currentHealth <= 50)
-            {
+            else if (currentHealth <= 50 && currentHealth > 25)
                 sr.color = Color.orange;
-
-            }
-            if(currentHealth <= 25)
-            {
+            else if (currentHealth <= 25)
                 sr.color = Color.red;
 
-            }
             Invoke(nameof(ResetColor), 0.1f);
         }
 
-
         if (currentHealth <= 0)
         {
+            GameManager.stopMeteor = true;
+            AudioManager.Instance.PlaySFX(AudioManager.SFXType.bossDie);
             Die();
         }
     }
@@ -211,24 +209,63 @@ public class FinalBoss : MonoBehaviour
     void UpdateSpriteByHealth()
     {
         if (currentHealth <= 25)
-        {
             sr.sprite = spriteDamage3;
-        }
         else if (currentHealth <= 50)
-        {
             sr.sprite = spriteDamage2;
-        }
         else if (currentHealth <= 75)
-        {
             sr.sprite = spriteDamage1;
-        }
     }
 
     void Die()
     {
+        isDying = true;
         isDead = true;
 
-        Debug.Log("final");
+    }
+
+void HandleDeathAnimation()
+{
+    deathTimer += Time.deltaTime;
+
+    transform.Rotate(0f, 0f, 600f * Time.deltaTime);
+
+    if (pulseCount < 4)
+    {
+        float scale = 1f + Mathf.Sin(Time.time * pulseSpeed) * 0.2f;
+        transform.localScale = Vector3.one * scale;
+
+        if (deathTimer > (pulseCount + 1) * 0.4f)
+        {
+            pulseCount++;
+        }
+    }
+    else
+    {
+        transform.localScale = Vector3.MoveTowards(
+            transform.localScale,
+            Vector3.zero,
+            2.5f * Time.deltaTime
+        );
+
+        if (transform.localScale.x <= 0.05f && !endStarted)
+        {
+            endStarted = true;
+            StartCoroutine(EndSequence());
+        }
+    }
+}
+
+    System.Collections.IEnumerator EndSequence()
+    {
+        GameManager.ChadText = "¡Lo conseguimos! ";
+        yield return new WaitForSeconds(3.5f);
+
+        GameManager.ChadText = "Estamos llegando al Asteroide, Poesita nos espera";
+        yield return new WaitForSeconds(3.5f);
+
+        GameManager.ChadText = "¡Felicitaciones Guapo!";
+        yield return new WaitForSeconds(3.5f);
+
         GameManager.you_win = true;
 
         gameObject.SetActive(false);

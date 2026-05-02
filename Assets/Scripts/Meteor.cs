@@ -28,6 +28,7 @@ public class Meteor : MonoBehaviour
     [SerializeField]
     private GameObject destroyEffect;
 
+
     void Awake()
     {
         sr = GetComponent<SpriteRenderer>();
@@ -80,7 +81,7 @@ public class Meteor : MonoBehaviour
 
     void Respawn()
     {
-        if (GameManager.Level == 1 || GameManager.Level == 5 || GameManager.Level == 6)
+        if ((GameManager.Level == 1 || GameManager.Level == 5 || GameManager.Level == 6) && !GameManager.stopMeteor)
         {
             if(GameManager.Level == 1){
                 GameManager.level1_count++;

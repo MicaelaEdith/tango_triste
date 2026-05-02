@@ -24,7 +24,16 @@ public class AudioManager : MonoBehaviour
         Win,
         GameOver,
         ElectricHit,
-        chad
+        chad1,
+        chad2,
+        chad3,
+        chad4,
+        chad5,
+        chad6,
+        chad7,
+        chad8,
+        bossDemage,
+        bossDie
     }
 
     public static bool isMusicMuted;
@@ -96,6 +105,36 @@ public class AudioManager : MonoBehaviour
         if (index >= 0 && index < sfxClips.Length)
         {
             sfxSource.PlayOneShot(sfxClips[index]);
+        }
+    }
+
+    public void PlayRandomChad()
+    {
+        if (isSfxMuted) return;
+
+        string[] chadNames = new string[]
+        {
+            "chad1",
+            "chad2",
+            "chad3",
+            "chad4",
+            "chad5",
+            "chad6",
+            "chad7",
+            "chad8"
+        };
+
+        int random = Random.Range(0, chadNames.Length);
+        string selectedName = chadNames[random];
+
+        if (System.Enum.TryParse(selectedName, out SFXType type))
+        {
+            int index = (int)type;
+
+            if (index >= 0 && index < sfxClips.Length)
+            {
+                sfxSource.PlayOneShot(sfxClips[index]);
+            }
         }
     }
 }
