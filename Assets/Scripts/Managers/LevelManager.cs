@@ -11,7 +11,9 @@ public class LevelManager : MonoBehaviour
     private EnemyZigZagSpawner enemyZigZagSpawner;
     [SerializeField]
     private Level5Spawner level5Spawner;
-    
+    [SerializeField]
+    private Level6 level6;
+
     [SerializeField]
     private SpriteRenderer background;
     [SerializeField]
@@ -40,8 +42,8 @@ public class LevelManager : MonoBehaviour
         currentLevel = GameManager.Level;
         originalColor = background.color;
 
-        //StartLevel(currentLevel);
-        StartLevel(6);
+        StartLevel(currentLevel);
+        //StartLevel(6);
     }
 
     void Update()
@@ -89,10 +91,10 @@ public class LevelManager : MonoBehaviour
     void CheckLevelProgress()
     {
         currentLevel = GameManager.Level;
-        if (currentLevel == 1 && GameManager.level1_count >= 200)
+        if (currentLevel == 1 && GameManager.level1_count >= 50)
         {
-            GameManager.ChadText = "Hey Guapo! Tenemos que recolectar chatarra para reparar la nave";
             StartTransition(2);
+            
         }
 
         if (currentLevel == 2)
@@ -108,12 +110,13 @@ public class LevelManager : MonoBehaviour
                 StartTransition(3);
             }
         }
+
         if (GameManager.Level == 3){
             if (GameManager.level3_count >= 120){
                 GameManager.ChadText =  "All your base are belong to us";
             }
             
-            if(GameManager.level3_count >= 140){
+            if(GameManager.level3_count >= 10){ //esto tiene que decir 140
             
             StartTransition(4);
             }
@@ -123,7 +126,7 @@ public class LevelManager : MonoBehaviour
         {
             if (enemyZigZagSpawner.CanEndLevel())
             {
-                StartLevel(5);
+                StartTransition(5);
             }
         }
 
@@ -141,8 +144,10 @@ public class LevelManager : MonoBehaviour
 
         if (currentLevel == 6)
         {
-            Debug.Log("nivel6");
-            //StartEnding();
+            if(GameManager.you_win){
+                GameManager.ChadText = "Lo conseguimos, ya estamos llegando al Asteroide";
+                StartEnding();
+            }
             
         }
     }
@@ -204,7 +209,8 @@ public class LevelManager : MonoBehaviour
 
     void SetupLevel2()
     {
-        meteorSpawner.gameObject.SetActive(false);
+        GameManager.ChadText = "Hey Guapo! Tenemos que recolectar chatarra para reparar la nave";
+        Invoke(nameof(ending_level1), 8f);
     }
 
     void SetupLevel3()
@@ -235,6 +241,7 @@ public class LevelManager : MonoBehaviour
     {
         GameManager.ChadText = "¡Ahí está! esa es la nave nodriza, hay que destruirla";
         level5Spawner.gameObject.SetActive(false);
+        level6.gameObject.SetActive(true);
         
     }
 
@@ -247,6 +254,11 @@ public class LevelManager : MonoBehaviour
     {
         GameManager.ChadText = "Intenta dispararles con la tecla espacio";
         meteorSpawner.gameObject.SetActive(true);
+    }
+
+    void ending_level1(){
+        meteorSpawner.gameObject.SetActive(false);
+
     }
 
 }

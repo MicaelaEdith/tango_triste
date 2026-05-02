@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8472629713412563690}
   - component: {fileID: 16873415777973897}
-  - component: {fileID: 1355177860627007700}
   - component: {fileID: 5896200279481517543}
   - component: {fileID: 1804543020562262572}
+  - component: {fileID: 4603497004538009827}
   m_Layer: 0
   m_Name: Enemy_2
   m_TagString: Untagged
@@ -94,18 +94,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!114 &1355177860627007700
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5452413891267035583}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 43329c1b004bcd85d9089017515ad56f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyZigZag
 --- !u!60 &5896200279481517543
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -258,3 +246,15 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &4603497004538009827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5452413891267035583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43329c1b004bcd85d9089017515ad56f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyZigZag

@@ -56,11 +56,7 @@ public class Meteor : MonoBehaviour
 
     void Update()
     {
-        if (GameManager.Level != 10 && GameManager.Level != 5)
-        {
-            gameObject.SetActive(false);
-            return;
-        }
+
         pushOffset = Mathf.MoveTowards(pushOffset, 0f, pushRecoverySpeed * Time.deltaTime);
 
         float finalY = -speed + pushOffset;
@@ -84,19 +80,25 @@ public class Meteor : MonoBehaviour
 
     void Respawn()
     {
-        if(GameManager.Level == 1){
-            GameManager.level1_count++;
-        } 
+        if (GameManager.Level == 1 || GameManager.Level == 5 || GameManager.Level == 6)
+        {
+            if(GameManager.Level == 1){
+                GameManager.level1_count++;
+            } 
 
-        float x = Random.Range(leftX, rightX);
-        float y = Random.Range(spawnMinY, spawnMaxY);
+            float x = Random.Range(leftX, rightX);
+            float y = Random.Range(spawnMinY, spawnMaxY);
 
-        transform.position = new Vector3(x, y, 0f);
+            transform.position = new Vector3(x, y, 0f);
 
-        rotationSpeed = Random.Range(-150f, 150f);
+            rotationSpeed = Random.Range(-150f, 150f);
 
-        hits = 0;
-        pushOffset = 0f;
+            hits = 0;
+            pushOffset = 0f;
+        }
+        else{
+            Destroy(gameObject);
+        }
     }
 
     void OnTriggerEnter2D(Collider2D other)

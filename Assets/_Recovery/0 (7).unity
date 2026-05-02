@@ -688,7 +688,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Tango triste
 
-    en el Asteroide'
+    en el asteroide'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3c9aefc02b020112791d2f93bd29951b, type: 2}
   m_sharedMaterial: {fileID: -2975640259049294344, guid: 3c9aefc02b020112791d2f93bd29951b, type: 2}

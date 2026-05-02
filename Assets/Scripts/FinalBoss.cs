@@ -69,14 +69,17 @@ public class FinalBoss : MonoBehaviour
 
     void Update()
     {
-        if (isDead) return;
+        if (GameManager.Level == 6){
+            if (isDead) return;
 
-        HandleEntry();
-
-        if (isInPosition)
-        {
-            HandleMovement();
-            HandleShooting();
+            if (isInPosition)
+            {
+                HandleMovement();
+                HandleShooting();
+            }else
+            {
+                HandleEntry();
+            }
         }
     }
 
@@ -226,6 +229,7 @@ public class FinalBoss : MonoBehaviour
         isDead = true;
 
         Debug.Log("final");
+        GameManager.you_win = true;
 
         gameObject.SetActive(false);
     }

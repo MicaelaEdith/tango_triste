@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class EnemyZigZagSpawner : MonoBehaviour
 {
@@ -17,20 +18,24 @@ public class EnemyZigZagSpawner : MonoBehaviour
     private float startY;
     private float startX;
 
-    private bool finishedSpawning = false;
     private bool levelCanEnd = false;
-    private float endTimer = 0f;
 
-    void OnEnable()
+    // 🔹 NUEVO: guardamos la última fila
+    private List<GameObject> lastRowEnemies = new List<GameObject>();
+
+    // 🔹 límite superior de pantalla
+    private float topLimit;
+
+    void Start()
     {
-        if (GameManager.Level != 4) return;
-
         Camera cam = Camera.main;
 
         float screenHeight = cam.orthographicSize * 2f;
         float bottomEdge = cam.transform.position.y - screenHeight / 2f;
+        float topEdge = cam.transform.position.y + screenHeight / 2f;
 
         startY = bottomEdge - spawnOffsetY;
+        topLimit = topEdge + 2f; // un margen
 
         float totalWidth = (enemiesPerRow - 1) * spaceBetweenEnemies;
         startX = cam.transform.position.x - totalWidth / 2f;
@@ -38,9 +43,7 @@ public class EnemyZigZagSpawner : MonoBehaviour
         currentRow = 0;
         timer = 0f;
         isSpawning = true;
-
         levelCanEnd = false;
-        endTimer = 0f;
 
         SpawnRow();
         currentRow++;
@@ -48,33 +51,26 @@ public class EnemyZigZagSpawner : MonoBehaviour
 
     void Update()
     {
-        if (isSpawning)
+        HandleSpawning();
+        CheckLastRowExit();
+    }
+
+    void HandleSpawning()
+    {
+        if (!isSpawning) return;
+
+        timer += Time.deltaTime;
+
+        if (timer >= delayBetweenRows)
         {
-            timer += Time.deltaTime;
+            timer = 0f;
 
-            if (timer >= delayBetweenRows)
+            SpawnRow();
+            currentRow++;
+
+            if (currentRow >= totalRows)
             {
-                timer = 0f;
-
-                SpawnRow();
-                currentRow++;
-
-                if (currentRow >= totalRows)
-                {
-                    isSpawning = false;
-                    finishedSpawning = true;
-                }
-            }
-        }
-
-    
-        if (finishedSpawning)
-        {
-            endTimer += Time.deltaTime;
-
-            if (endTimer >= 44f)
-            {
-                levelCanEnd = true;
+                isSpawning = false;
             }
         }
     }
@@ -83,12 +79,50 @@ public class EnemyZigZagSpawner : MonoBehaviour
     {
         float rowY = startY;
 
+        // 🔹 si es la última fila, limpiamos y guardamos referencias
+        bool isLastRow = (currentRow == totalRows - 1);
+
+        if (isLastRow)
+        {
+            lastRowEnemies.Clear();
+        }
+
         for (int i = 0; i < enemiesPerRow; i++)
         {
             float x = startX + i * spaceBetweenEnemies;
             Vector3 spawnPos = new Vector3(x, rowY, 0f);
 
-            Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
+            GameObject enemy = Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
+
+            if (isLastRow)
+            {
+                lastRowEnemies.Add(enemy);
+            }
+        }
+    }
+
+    void CheckLastRowExit()
+    {
+        if (levelCanEnd) return;
+        if (lastRowEnemies.Count == 0) return;
+
+        bool allOut = true;
+
+        foreach (GameObject enemy in lastRowEnemies)
+        {
+            if (enemy == null) continue;
+
+            if (enemy.transform.position.y < topLimit)
+            {
+                allOut = false;
+                break;
+            }
+        }
+
+        if (allOut)
+        {
+            Debug.Log("Última fila salió de pantalla");
+            levelCanEnd = true;
         }
     }
 

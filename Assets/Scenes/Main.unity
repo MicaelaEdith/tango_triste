@@ -328,7 +328,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &221001665
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1155,6 +1155,7 @@ MonoBehaviour:
   enemyShipSpawner: {fileID: 221001665}
   enemyZigZagSpawner: {fileID: 1187879498}
   level5Spawner: {fileID: 1568188716}
+  level6: {fileID: 1674371286}
   background: {fileID: 1224975659}
   levelUpUI: {fileID: 855068415}
   lblLevel: {fileID: 705108228}
@@ -2278,7 +2279,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1412390649
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2966,7 +2967,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1674371285
 Transform:
   m_ObjectHideFlags: 0

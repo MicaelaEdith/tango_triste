@@ -68,7 +68,7 @@ public class Level5Spawner : MonoBehaviour
 
         HandleZigZagSpawn();
 
-        if (shipsDestroyed >= 60)
+        if (shipsDestroyed >= 10)
         {
             stopSpawning = true;
             GameManager.ChadText = "Quedan pocas... Disparales a todas!";
@@ -79,7 +79,6 @@ public class Level5Spawner : MonoBehaviour
     {
         for (int i = 0; i < 8; i++)
         {
-            Debug.Log("paso spawner meteorito: "+i);
             GameObject obj = Instantiate(meteorPrefab);
 
             Meteor m = obj.GetComponent<Meteor>();
@@ -110,7 +109,8 @@ public class Level5Spawner : MonoBehaviour
 
     void SpawnSingleShip()
     {
-        if (stopSpawning) return;
+
+        if (GameManager.Level == 6) return;
 
         float x = Random.Range(leftX, rightX);
 
@@ -134,6 +134,7 @@ public class Level5Spawner : MonoBehaviour
 
     public void OnShipDestroyed()
     {
+        Debug.Log("paso pr el destroy");
         shipsDestroyed++;
 
         if (!stopSpawning)
