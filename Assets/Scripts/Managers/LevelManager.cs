@@ -132,7 +132,7 @@ public class LevelManager : MonoBehaviour
 
         if (currentLevel == 5)
         {
-            if (level5Spawner.shipsDestroyed >= 70)
+            if (level5Spawner.shipsDestroyed >= 120)
                 GameManager.ChadText = "Parece que las naves vienen de una nave nodriza";
 
             if (level5Spawner.IsFinished)

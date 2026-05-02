@@ -164,7 +164,7 @@ public class EnemyShip : MonoBehaviour
 
     void Respawn()
     {
-        if (GameManager.Level != 6){
+        if (!GameManager.stopMeteor){
 
             Camera cam = Camera.main;
 

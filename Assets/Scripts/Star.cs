@@ -21,7 +21,7 @@ public class Star : MonoBehaviour
 
     void Update()
     {
-        if (GameManager.Level !=6)
+        if (GameManager.Level !=6 || (GameManager.Level == 6 && GameManager.stopMeteor))
         {
             float finalSpeed = speed * GameManager.SpeedMultiplier;
 
