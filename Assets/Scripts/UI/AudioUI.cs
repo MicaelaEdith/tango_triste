@@ -2,15 +2,13 @@ using UnityEngine;
 
 public class AudioUI : MonoBehaviour
 {
-    public void ToggleMusic()
+    public void Toggle(string channel)
     {
-        if (AudioManager.Instance != null)
-            AudioManager.Instance.ToggleMusic();
-    }
+        if (AudioManager.Instance == null) return;
 
-    public void ToggleSFX()
-    {
-        if (AudioManager.Instance != null)
+        if (channel == "music")
+            AudioManager.Instance.ToggleMusic();
+        else if (channel == "sfx")
             AudioManager.Instance.ToggleSFX();
     }
 }

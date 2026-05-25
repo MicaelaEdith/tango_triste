@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using System.Threading.Tasks;
+using System.Collections;
 
 public class PlayerController : MonoBehaviour
 {
@@ -176,7 +176,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
-public async void RepairPlayer()
+public void RepairPlayer()
 {
     fastUpSpeed = 6f;
     speedX = 6f;
@@ -191,15 +191,20 @@ public async void RepairPlayer()
 
     AudioManager.Instance.PlaySFX(AudioManager.SFXType.LevelUp);
 
+    StartCoroutine(RepairBlinkRoutine());
+}
+
+IEnumerator RepairBlinkRoutine()
+{
     SpriteRenderer sr = GetComponent<SpriteRenderer>();
 
     for (int i = 0; i < 6; i++)
     {
         sr.color = new Color(1f, 1f, 1f, 0.2f);
-        await Task.Delay(80);
+        yield return new WaitForSeconds(0.08f);
 
         sr.color = new Color(1f, 1f, 1f, 1f);
-        await Task.Delay(80);
+        yield return new WaitForSeconds(0.08f);
     }
 }
 

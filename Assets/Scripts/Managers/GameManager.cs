@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
     private GameObject Chad;
 
     public TextMeshProUGUI btn_text; 
-    
+
     public static float SpeedMultiplier = 1f;
 
     public static float HorizontalDirection = 0f;
@@ -81,7 +81,7 @@ public class GameManager : MonoBehaviour
     public void RestartGame()
     {
         Level = 1;
-        garbage = 0;
+        garbage = 1;
         level1_count = 0;
         level3_count = 0;
 

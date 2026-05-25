@@ -1016,10 +1016,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.CanvasScaler
-  m_UiScaleMode: 1
+  m_UiScaleMode: 0
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 1920, y: 1080}
+  m_ReferenceResolution: {x: 800, y: 600}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -1620,26 +1620,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AudioManager
   musicSource: {fileID: 453183092}
   sfxSource: {fileID: 453183092}
-  menuMusic: {fileID: 8300000, guid: 1afff8a54d169ff6cb7481689153ca6d, type: 3}
-  mainMusic: {fileID: 8300000, guid: a9aabf3f0f288a75e9e0dc31305fe74a, type: 3}
+  menuMusic: {fileID: 8300000, guid: 33cfcc68f2a65f7c4af9b7b84c54bccd, type: 3}
+  mainMusic: {fileID: 8300000, guid: a07170d3796afc155b59e1607d51d708, type: 3}
   sfxClips:
-  - {fileID: 8300000, guid: 59cfbf6a165447020a4da171e4fbe63c, type: 3}
-  - {fileID: 8300000, guid: ab5b1438dc20b222092a4f9e69c7b910, type: 3}
-  - {fileID: 8300000, guid: abb5b12b7e5451529a844308312b6b18, type: 3}
-  - {fileID: 8300000, guid: d39f9dacf8cdde8e384d9f9f4c9eee3a, type: 3}
-  - {fileID: 8300000, guid: 632b7a323c23083218811c91797d1f4d, type: 3}
-  - {fileID: 8300000, guid: 41fe819eda5bda6619ccaf447f8c8e07, type: 3}
-  - {fileID: 8300000, guid: 1b9e6ae551f3da555b9e7a7c6ce2e31f, type: 3}
-  - {fileID: 8300000, guid: 2ece80abf89e5d831a58ba9f551c98f4, type: 3}
-  - {fileID: 8300000, guid: a75f9ff8223beb5f7ad6019bf19c5b36, type: 3}
-  - {fileID: 8300000, guid: 11ee0458e087c05a8a38b729fde3954d, type: 3}
-  - {fileID: 8300000, guid: 3227be658fcb1e09f8f0dcedfcd7f73c, type: 3}
-  - {fileID: 8300000, guid: 9e5780ecca6139356aed095eed6593dd, type: 3}
-  - {fileID: 8300000, guid: da7d310557d8efb928518f8f523206fe, type: 3}
-  - {fileID: 8300000, guid: bdf20012bab9afe43b5c0967fc9b7089, type: 3}
-  - {fileID: 8300000, guid: 3e32958b080d4e222b03da2d9e221c77, type: 3}
-  - {fileID: 8300000, guid: 9c156f60741e29207896109b4a2c9a7c, type: 3}
-  - {fileID: 8300000, guid: 18bb5637374f866e8a0f3945c34a6add, type: 3}
+  - {fileID: 8300000, guid: 7a9df043bc09393268b83270124c349b, type: 3}
+  - {fileID: 8300000, guid: ee27b15b917e8df03a483f32cea102af, type: 3}
+  - {fileID: 8300000, guid: 3499cf1be9689ec2a8c55b2efe9fe920, type: 3}
+  - {fileID: 8300000, guid: 3fccd5c209debd9a9b595e38e7797622, type: 3}
+  - {fileID: 8300000, guid: edb0751092e9dfb7bb7f2bcde6c1b2d7, type: 3}
+  - {fileID: 8300000, guid: 51a73d4220e8884049428e69d6452958, type: 3}
+  - {fileID: 8300000, guid: 9ed880233f7d41aaaa79d559f7c5b015, type: 3}
+  - {fileID: 8300000, guid: 1190c374fcf01ffc5b8d3be84d1da0dc, type: 3}
+  - {fileID: 8300000, guid: a57a43c2380c08e98b3eb6065b3ef8bb, type: 3}
+  - {fileID: 8300000, guid: 6609264ddb1d7ed1b97ce24683463c5f, type: 3}
+  - {fileID: 8300000, guid: 64b32e53e7e6ba61fa16ba4062727aae, type: 3}
+  - {fileID: 8300000, guid: f390bbec8065e238b9df3dcd0ff6e9f0, type: 3}
+  - {fileID: 8300000, guid: dcd6a791cf6e518e087ef6ba2fcf2775, type: 3}
+  - {fileID: 8300000, guid: 4d7ecad9b90d9cad5af7e4e02f78b1ec, type: 3}
+  - {fileID: 8300000, guid: 2ab43743fb80aa0a898f46dd110d25fc, type: 3}
+  - {fileID: 8300000, guid: 20cb2d1677fadc19ea3219b6514aa123, type: 3}
+  - {fileID: 8300000, guid: 8fc3cd6c345869a3ca95cf8da64712f3, type: 3}
 --- !u!4 &1673251470
 Transform:
   m_ObjectHideFlags: 0

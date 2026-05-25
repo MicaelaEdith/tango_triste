@@ -245,6 +245,9 @@ public class LevelManager : MonoBehaviour
 
     void StartEnding()
     {
+        GameManager.Level = 1;
+        GameManager.garbage = 1;
+        GameManager.you_win = false;
         UnityEngine.SceneManagement.SceneManager.LoadScene("Ending");
     }
 
